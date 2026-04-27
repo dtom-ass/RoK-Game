@@ -23,15 +23,14 @@ public abstract class Warrior {
             double lifePoints,
             double attackPer,
             double defencePer,
-            String specialArm,
-            String nativeFrom) {
+            String specialArm) {
 
         this.name = name;
         this.lifePoints = lifePoints;
         this.attackPer = attackPer;
         this.defencePer = defencePer;
         this.specialArm = specialArm;
-        this.nativeFrom = nativeFrom;
+        this.warriorType = getWarriorType();
     }
 
     protected void setLifePoints(double addLife) {
@@ -93,5 +92,5 @@ public abstract class Warrior {
     public String getWarriorType(){
         return warriorType;
     }
-
+    public abstract void setArmsList();
 }

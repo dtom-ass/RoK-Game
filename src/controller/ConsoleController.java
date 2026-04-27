@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+import model.Cultures.AztecaCulture;
+import model.Cultures.MayaCulture;
 import view.ConsoleView;
 
 public class ConsoleController {
@@ -12,10 +14,11 @@ public class ConsoleController {
     }
 
     public void start(){
+        Culture culture = new MayaCulture();
+        CreateTeam newTeam = new CreateTeam("Juagor 1", culture);
 
-        MayaCulture maya = new MayaCulture();
-
-        view.showWarriors(maya);
+        view.displayMessage("-------------------");
+        view.showTeam(newTeam);
 
     }
 }   

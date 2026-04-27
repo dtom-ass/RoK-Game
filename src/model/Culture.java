@@ -49,6 +49,10 @@ public abstract class Culture {
         return perBonus;
     }
 
+    public String getSkill(){
+        return specialSkill;
+    }
+
     protected void setName(String name) {
         this.name = name;
     }
@@ -61,4 +65,5 @@ public abstract class Culture {
         this.specialSkill = skill;
     }
 
+    public abstract void setWarriorNameList();
 }
