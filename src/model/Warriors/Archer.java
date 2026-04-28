@@ -46,13 +46,14 @@ public class Archer extends Warrior {
     }
 
     @Override
-    public void setArmsList(){
+    public List<String> getArmsList(){
         List<String> Armors = new ArrayList<>();
 
         Armors.add("Estólica ");
         Armors.add("Waraka");
         Armors.add("Cerbatana");
         Armors.add("Arco y Flecha");
+        return Armors;
     }
 
 }

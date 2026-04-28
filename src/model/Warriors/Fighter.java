@@ -45,7 +45,7 @@ public class Fighter extends Warrior {
         return "Peleador";
     }
     @Override
-    public void setArmsList(){
+    public List<String> getArmsList(){
         List<String> Armors = new ArrayList<>();
 
         Armors.add("Macuahuitl ");
@@ -53,5 +53,6 @@ public class Fighter extends Warrior {
         Armors.add("Hacha");
         Armors.add("Garrote");
         Armors.add("Cuchillo");
+        return Armors;
     }
 }

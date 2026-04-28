@@ -11,7 +11,7 @@ public class AztecaCulture extends Culture {
         addWarrior(new Lancer("K'awii",0,0,0,"Lanza"));
     };
     @Override
-        public void setWarriorNameList(){
+        public List<String> getWarriorNameList(){
             List<String> nameList = new ArrayList<>();
             nameList.add("Cuauhtémoc");
             nameList.add("Moctezuma");
@@ -23,6 +23,7 @@ public class AztecaCulture extends Culture {
             nameList.add("Tenoch");
             nameList.add("Citlalli");
             nameList.add("Tizoc");
+            return nameList;
         }
     
 }

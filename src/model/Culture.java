@@ -30,7 +30,7 @@ public abstract class Culture {
     /*
      * Agrega un guerrero a la cultura.
      */
-    protected void addWarrior(Warrior warrior) {
+    public void addWarrior(Warrior warrior) {
         warriorList.add(warrior);
     }
 
@@ -65,5 +65,5 @@ public abstract class Culture {
         this.specialSkill = skill;
     }
 
-    public abstract void setWarriorNameList();
+    public abstract List<String> getWarriorNameList();
 }

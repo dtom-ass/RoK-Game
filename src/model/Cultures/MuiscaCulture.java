@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Culture;
+import model.Warrior;
 
 public class MuiscaCulture extends Culture{
     public MuiscaCulture(){
         super("Muisca", 0 ,"Poder Muisca");
     }
     @Override
-        public void setWarriorNameList(){
+         public List<String> getWarriorNameList(){
             List<String> nameList = new ArrayList<>();
             nameList.add("Nemequene");
             nameList.add("Saguanmachica");
@@ -22,7 +23,7 @@ public class MuiscaCulture extends Culture{
             nameList.add("Tundama");
             nameList.add("Idacansá");
             nameList.add("Sugamuxi");
-
+            return nameList;
 
         }
 }

@@ -21,21 +21,8 @@ public class ConsoleView {
                             + " | Vida: " + warrior.getLife()
                             + " | Ataque: " + warrior.getAttack()
                             + " | Defensa: " + warrior.getDefence()
-                        + " | Tipo: " + warrior.getWarriorType());
-        }
-    }
-
-    public void showTeam(CreateTeam team){
-        System.out.println(team.testTeam());
-        System.out.println(team.testCult());
-        for (Warrior warrior : team.testTeamSt()) {
-
-            System.out.println(
-                    warrior.getName()
-                            + " | Vida: " + warrior.getLife()
-                            + " | Ataque: " + warrior.getAttack()
-                            + " | Defensa: " + warrior.getDefence()
-                        + " | Tipo: " + warrior.getWarriorType());
+                            + " | Tipo: " + warrior.getWarriorType()
+                            + " | Arma: " + warrior.getArmor());
         }
     }
 

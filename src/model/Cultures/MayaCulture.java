@@ -2,6 +2,7 @@ package model.Cultures;
 import java.util.*;
 
 import model.Culture;
+import model.Warrior;
 import model.Warriors.Tank;
 
 /*
@@ -21,15 +22,15 @@ public class MayaCulture extends Culture {
         /*
          * Registro inicial de guerreros.
          */
-        addWarrior(new Tank(
-            "Balam",0,0,0,
-            "Escudo"
-        ));
+        //addWarrior(new Tank(
+          //  "Balam",0,0,0,
+            //"Escudo"
+        //));
         
     } 
 
     @Override
-        public void setWarriorNameList(){
+        public List<String> getWarriorNameList(){
             List<String> nameList = new ArrayList<>();
             nameList.add("Itzamná");
             nameList.add("K’inich");
@@ -41,6 +42,7 @@ public class MayaCulture extends Culture {
             nameList.add("Kaknab");
             nameList.add("Canek");
             nameList.add("Nicte-Ha");
+            return nameList;
         }
 
 }    

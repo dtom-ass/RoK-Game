@@ -44,11 +44,12 @@ public class Healer extends Warrior {
         return "Curador";
     }
     @Override
-    public void setArmsList(){
+    public List<String> getArmsList(){
         List<String> Armors = new ArrayList<>();
 
         Armors.add("Cuchillos de Obsidiana");
         Armors.add("Bolsas de Hierbas");
         Armors.add("Agujas de Maguey");
+        return Armors;
     }
 }

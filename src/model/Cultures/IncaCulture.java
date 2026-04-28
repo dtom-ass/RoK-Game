@@ -11,7 +11,7 @@ public class IncaCulture extends Culture {
 
     }
     @Override
-        public void setWarriorNameList(){
+         public List<String> getWarriorNameList(){
             List<String> nameList = new ArrayList<>();
             nameList.add("Pachacútec");
             nameList.add("Huayna Cápac");
@@ -23,5 +23,6 @@ public class IncaCulture extends Culture {
             nameList.add("Amaru");
             nameList.add("Illapa");
             nameList.add("Chasca");
+            return nameList;
         }
 }

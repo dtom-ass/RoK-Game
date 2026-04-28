@@ -43,12 +43,13 @@ public class Tank extends Warrior {
          */
     }
     @Override
-    public void setArmsList(){
+    public List<String> getArmsList(){
         List<String> Armors = new ArrayList<>();
 
         Armors.add("Ichcahuipilli");
         Armors.add("Chimalli");
         Armors.add("Escudo de Madera");
         Armors.add("Cascos de Metal");
+        return Armors;
     }
 }

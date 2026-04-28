@@ -46,13 +46,14 @@ public class Lancer extends Warrior {
     }
 
     @Override
-    public void setArmsList(){
+    public List<String> getArmsList(){
         List<String> Armors = new ArrayList<>();
 
         Armors.add("Tepoztopilli");
         Armors.add("Lanza de Chonta");
         Armors.add("Nab'te");
         Armors.add("Pica de Bronce");
+        return Armors;
     }
 
 }

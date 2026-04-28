@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /*
  * Clase abstracta que define los atributos
  * y comportamientos básicos de un guerrero.
@@ -92,5 +94,13 @@ public abstract class Warrior {
     public String getWarriorType(){
         return warriorType;
     }
-    public abstract void setArmsList();
+
+    public void setArmor(String Armor){
+        this.specialArm = Armor;
+    }
+    public String getArmor(){
+        return specialArm;
+    }
+
+    public abstract List<String> getArmsList();
 }
