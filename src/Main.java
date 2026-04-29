@@ -4,7 +4,7 @@ import controller.BattleController;
 import controller.EnemyBot;
 import controller.PlayerController;
 import controller.SelectionController;
-
+// MAIN DE PRUEBA. MODELO DE COMBATE OK.
 public class Main {
 
     public static void main(String[] args) {
