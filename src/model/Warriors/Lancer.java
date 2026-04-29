@@ -1,59 +1,42 @@
 package model.Warriors;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Warrior;
 
-/*
- * Clase que representa un guerrero tipo lancero.
- * Hereda atributos y comportamientos de Warrior.
+/**
+ * Representa un guerrero de tipo lancero.
  */
 public class Lancer extends Warrior {
 
-    /*
-     * Constructor que inicializa un guerrero tipo lancero
-     * con sus atributos base.
+    private static final List<String> WEAPONS = List.of(
+            "Tepoztopilli",
+            "Lanza de Chonta",
+            "Nab'te",
+            "Pica de Bronce"
+    );
+
+    /**
+     * Inicializa atributos base del lancero.
      */
-    public Lancer(String name,
-            double lifePoints,
-            double attackPer,
-            double defencePer,
-            String specialArm) {
+    public Lancer(String name) {
 
-        super(name,
-                lifePoints,
-                attackPer,
-                defencePer,
-                specialArm);
+        super(name,0,0,0,"");
 
-        // Configuración inicial de atributos del lancero
-        setLifePoints(70); // Rango estimado: 0 - 100
-        setAttack(0.9); // Rango estimado: 0 - 1
-        setDefence(1); // Rango estimado: 0 - 1
+        updateLife(55);
+        updateAttack(0.85);
+        updateDefence(0.6);
 
-        /*
-         * Se aplica una habilidad especial:
-         * 1 = Vida
-         * 2 = Ataque
-         * 3 = Defensa
-         */
+        setWarriorType("Lancero");
+
         setSpecial(1);
     }
 
-    public String getWarriorType() {
-        return "Lancero";
-    }
-
+    /**
+     * Retorna armas disponibles del lancero.
+     */
     @Override
-    public List<String> getArmsList(){
-        List<String> Armors = new ArrayList<>();
-
-        Armors.add("Tepoztopilli");
-        Armors.add("Lanza de Chonta");
-        Armors.add("Nab'te");
-        Armors.add("Pica de Bronce");
-        return Armors;
+    public List<String> getArmsList() {
+        return WEAPONS;
     }
-
 }

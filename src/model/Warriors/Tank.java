@@ -1,55 +1,42 @@
 package model.Warriors;
-import java.util.ArrayList;
+
 import java.util.List;
+
 import model.Warrior;
 
-/*
- * Clase que representa un guerrero tipo tanque.
- * Hereda atributos y comportamientos de Warrior.
+/**
+ * Representa un guerrero de tipo tanque.
  */
 public class Tank extends Warrior {
 
-    /*
-     * Constructor que inicializa un guerrero tipo tanque
-     * y asigna sus características base.
+    private static final List<String> WEAPONS = List.of(
+            "Ichcahuipilli",
+            "Chimalli",
+            "Escudo de Madera",
+            "Cascos de Metal"
+    );
+
+    /**
+     * Inicializa atributos base del tanque.
      */
-    public Tank(String name,
-            double lifePoints,
-            double attackPer,
-            double defencePer,
-            String specialArm) {
+    public Tank(String name) {
 
-        super(name,
-                lifePoints,
-                attackPer,
-                defencePer,
-                specialArm);
+        super(name,0,0,0,"");
 
-        // Configuración inicial de atributos del tanque
+        updateLife(70);
+        updateAttack(0.4);
+        updateDefence(0.8);
+
         setWarriorType("Tanque");
-        
-
-        setLifePoints(75);
-        setAttack(0.4);
-        setDefence(0.8);
 
         setSpecial(2);
-
-        /*
-         * Se aplica una habilidad especial:
-         * 1 = Vida
-         * 2 = Ataque
-         * 3 = Defensa
-         */
     }
-    @Override
-    public List<String> getArmsList(){
-        List<String> Armors = new ArrayList<>();
 
-        Armors.add("Ichcahuipilli");
-        Armors.add("Chimalli");
-        Armors.add("Escudo de Madera");
-        Armors.add("Cascos de Metal");
-        return Armors;
+    /**
+     * Retorna armas disponibles del tanque.
+     */
+    @Override
+    public List<String> getArmsList() {
+        return WEAPONS;
     }
 }

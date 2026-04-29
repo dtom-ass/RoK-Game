@@ -1,55 +1,41 @@
 package model.Warriors;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import model.Warrior;
 
-/*
- * Clase que representa un guerrero tipo sanador.
- * Hereda atributos y comportamientos de Warrior.
+/**
+ * Representa un guerrero de tipo sanador.
  */
 public class Healer extends Warrior {
 
-    /*
-     * Constructor que inicializa un guerrero tipo sanador
-     * con sus atributos base.
+    private static final List<String> WEAPONS = List.of(
+            "Cuchillos de Obsidiana",
+            "Bolsas de Hierbas",
+            "Agujas de Maguey"
+    );
+
+    /**
+     * Inicializa atributos base del sanador.
      */
-    public Healer(String name,
-            double lifePoints,
-            double attackPer,
-            double defencePer,
-            String specialArm) {
+    public Healer(String name) {
 
-        super(name,
-                lifePoints,
-                attackPer,
-                defencePer,
-                specialArm);
+        super(name,0,0,0,"");
 
-        // Configuración inicial de atributos del sanador
-        setLifePoints(80); // Rango estimado: 0 - 100
-        setAttack(0.6); // Rango estimado: 0 - 1
-        setDefence(0.2); // Rango estimado: 0 - 1
+        updateLife(60);
+        updateAttack(0.6);
+        updateDefence(0.4);
 
-        /*
-         * Se aplica una habilidad especial:
-         * 1 = Vida
-         * 2 = Ataque
-         * 3 = Defensa
-         */
+        setWarriorType("Curador");
+
         setSpecial(3);
     }
 
-    public String getWarriorType() {
-        return "Curador";
-    }
+    /**
+     * Retorna armas disponibles del sanador.
+     */
     @Override
-    public List<String> getArmsList(){
-        List<String> Armors = new ArrayList<>();
-
-        Armors.add("Cuchillos de Obsidiana");
-        Armors.add("Bolsas de Hierbas");
-        Armors.add("Agujas de Maguey");
-        return Armors;
+    public List<String> getArmsList() {
+        return WEAPONS;
     }
 }

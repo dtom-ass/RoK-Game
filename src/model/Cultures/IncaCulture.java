@@ -1,28 +1,45 @@
 package model.Cultures;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Culture;
 
+/**
+ * Representa la cultura Inca.
+ */
 public class IncaCulture extends Culture {
-    public IncaCulture(){
-        super("Inca", 0 , "Poder Inca");
 
+    private static final List<String> WARRIOR_NAMES = List.of(
+            "Pachacútec",
+            "Huayna Cápac",
+            "Atahualpa",
+            "Tupac Yupanqui",
+            "Manco Cápac",
+            "Quispe",
+            "Sayri",
+            "Amaru",
+            "Illapa",
+            "Chasca"
+    );
+
+    /**
+     * Inicializa atributos base de la cultura.
+     */
+    public IncaCulture() {
+
+        super(
+            "Inca",
+            0,
+            "Poder Inca"
+        );
     }
+
+    /**
+     * Retorna nombres disponibles para guerreros incas.
+     */
     @Override
-         public List<String> getWarriorNameList(){
-            List<String> nameList = new ArrayList<>();
-            nameList.add("Pachacútec");
-            nameList.add("Huayna Cápac");
-            nameList.add("Atahualpa");
-            nameList.add("Tupac Yupanqui");
-            nameList.add("Manco Cápac");
-            nameList.add("Quispe");
-            nameList.add("Sayri");
-            nameList.add("Amaru");
-            nameList.add("Illapa");
-            nameList.add("Chasca");
-            return nameList;
-        }
+    public List<String> getWarriorNameList() {
+        return WARRIOR_NAMES;
+    }
+
 }

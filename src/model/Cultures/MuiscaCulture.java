@@ -1,29 +1,45 @@
 package model.Cultures;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Culture;
-import model.Warrior;
 
-public class MuiscaCulture extends Culture{
-    public MuiscaCulture(){
-        super("Muisca", 0 ,"Poder Muisca");
+/**
+ * Representa la cultura Muisca.
+ */
+public class MuiscaCulture extends Culture {
+
+    private static final List<String> WARRIOR_NAMES = List.of(
+            "Nemequene",
+            "Saguanmachica",
+            "Meicuchuca",
+            "Aquiminzaque",
+            "Michuá",
+            "Saguamanchica",
+            "Hunzahúa",
+            "Tundama",
+            "Idacansá",
+            "Sugamuxi"
+    );
+
+    /**
+     * Inicializa atributos base de la cultura.
+     */
+    public MuiscaCulture() {
+
+        super(
+            "Muisca",
+            0,
+            "Poder Muisca"
+        );
     }
-    @Override
-         public List<String> getWarriorNameList(){
-            List<String> nameList = new ArrayList<>();
-            nameList.add("Nemequene");
-            nameList.add("Saguanmachica");
-            nameList.add("Meicuchuca");
-            nameList.add("Aquiminzaque");
-            nameList.add("Michuá");
-            nameList.add("Saguamanchica");
-            nameList.add("Hunzahúa");
-            nameList.add("Tundama");
-            nameList.add("Idacansá");
-            nameList.add("Sugamuxi");
-            return nameList;
 
-        }
+    /**
+     * Retorna nombres disponibles para guerreros muiscas.
+     */
+    @Override
+    public List<String> getWarriorNameList() {
+        return WARRIOR_NAMES;
+    }
+
 }

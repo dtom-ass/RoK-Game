@@ -1,29 +1,45 @@
 package model.Cultures;
-import java.util.*;
+
+import java.util.List;
 
 import model.Culture;
-import model.Warriors.Lancer;
 
+/**
+ * Representa la cultura Azteca.
+ */
 public class AztecaCulture extends Culture {
-    public AztecaCulture(){
-        super("Azteca", 0, "Habilidad Azteca");
 
-        addWarrior(new Lancer("K'awii",0,0,0,"Lanza"));
-    };
+    private static final List<String> WARRIOR_NAMES = List.of(
+            "Cuauhtémoc",
+            "Moctezuma",
+            "Cuitláhuac",
+            "Itzcóatl",
+            "Axayácatl",
+            "Xipil",
+            "Ilhuicamina",
+            "Tenoch",
+            "Citlalli",
+            "Tizoc"
+    );
+
+    /**
+     * Inicializa atributos base de la cultura.
+     */
+    public AztecaCulture() {
+
+        super(
+            "Azteca",
+            0,
+            "Habilidad Azteca"
+        );
+    }
+
+    /**
+     * Retorna nombres disponibles para guerreros aztecas.
+     */
     @Override
-        public List<String> getWarriorNameList(){
-            List<String> nameList = new ArrayList<>();
-            nameList.add("Cuauhtémoc");
-            nameList.add("Moctezuma");
-            nameList.add("Cuitláhuac");
-            nameList.add("Itzcóatl");
-            nameList.add("Axayácatl");
-            nameList.add("Xipil");
-            nameList.add("Ilhuicamina");
-            nameList.add("Tenoch");
-            nameList.add("Citlalli");
-            nameList.add("Tizoc");
-            return nameList;
-        }
-    
+    public List<String> getWarriorNameList() {
+        return WARRIOR_NAMES;
+    }
+
 }

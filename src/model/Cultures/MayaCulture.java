@@ -1,48 +1,45 @@
 package model.Cultures;
-import java.util.*;
+
+import java.util.List;
 
 import model.Culture;
-import model.Warrior;
-import model.Warriors.Tank;
 
-/*
- * Representa la cultura Maya
- * y sus guerreros iniciales.
+/**
+ * Representa la cultura Maya.
  */
 public class MayaCulture extends Culture {
 
-    public MayaCulture(){
+    private static final List<String> WARRIOR_NAMES = List.of(
+            "Itzamná",
+            "K’inich",
+            "Ixchel",
+            "Balam",
+            "Yaxun",
+            "Naabil",
+            "Zac-Nicté",
+            "Kaknab",
+            "Canek",
+            "Nicte-Ha"
+    );
+
+    /**
+     * Inicializa atributos base de la cultura.
+     */
+    public MayaCulture() {
 
         super(
             "Maya",
             0,
             "Habilidad Maya"
         );
+    }
 
-        /*
-         * Registro inicial de guerreros.
-         */
-        //addWarrior(new Tank(
-          //  "Balam",0,0,0,
-            //"Escudo"
-        //));
-        
-    } 
-
+    /**
+     * Retorna nombres disponibles para guerreros mayas.
+     */
     @Override
-        public List<String> getWarriorNameList(){
-            List<String> nameList = new ArrayList<>();
-            nameList.add("Itzamná");
-            nameList.add("K’inich");
-            nameList.add("Ixchel");
-            nameList.add("Balam");
-            nameList.add("Yaxun");
-            nameList.add("Naabil");
-            nameList.add("Zac-Nicté");
-            nameList.add("Kaknab");
-            nameList.add("Canek");
-            nameList.add("Nicte-Ha");
-            return nameList;
-        }
+    public List<String> getWarriorNameList() {
+        return WARRIOR_NAMES;
+    }
 
-}    
+}

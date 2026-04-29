@@ -1,6 +1,5 @@
 package view;
 
-import controller.CreateTeam;
 import model.Culture;
 import model.Warrior;
 

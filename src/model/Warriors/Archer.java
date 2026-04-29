@@ -1,59 +1,43 @@
 package model.Warriors;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Warrior;
 
-/*
- * Clase que representa un guerrero tipo arquero.
- * Hereda atributos y comportamientos de Warrior.
+/**
+ * Representa un guerrero de tipo arquero.
  */
 public class Archer extends Warrior {
 
-    /*
-     * Constructor que inicializa un guerrero tipo arquero
-     * con sus atributos base.
+    private static final List<String> WEAPONS = List.of(
+            "Estólica",
+            "Waraka",
+            "Cerbatana",
+            "Arco y Flecha"
+    );
+
+    /**
+     * Inicializa atributos base del arquero.
      */
-    public Archer(String name,
-            double lifePoints,
-            double attackPer,
-            double defencePer,
-            String specialArm) {
+    public Archer(String name) {
 
-        super(name,
-                lifePoints,
-                attackPer,
-                defencePer,
-                specialArm);
+        super(name,0,0,0,"");
 
-        // Configuración inicial de atributos del arquero
-        setLifePoints(75); // Rango estimado: 0 - 100
-        setAttack(0.7); // Rango estimado: 0 - 1
-        setDefence(0.6); // Rango estimado: 0 - 1
+        updateLife(55);
+        updateAttack(0.7);
+        updateDefence(0.5);
 
-        /*
-         * Se aplica una habilidad especial:
-         * 1 = Vida
-         * 2 = Ataque
-         * 3 = Defensa
-         */
+        setWarriorType("Arquero");
+
         setSpecial(1);
     }
 
-    public String getWarriorType() {
-        return "Arquero";
-    }
-
+    /**
+     * Retorna armas disponibles del arquero.
+     */
     @Override
-    public List<String> getArmsList(){
-        List<String> Armors = new ArrayList<>();
-
-        Armors.add("Estólica ");
-        Armors.add("Waraka");
-        Armors.add("Cerbatana");
-        Armors.add("Arco y Flecha");
-        return Armors;
+    public List<String> getArmsList() {
+        return WEAPONS;
     }
 
 }

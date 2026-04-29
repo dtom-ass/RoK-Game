@@ -2,105 +2,123 @@ package model;
 
 import java.util.List;
 
-/*
- * Clase abstracta que define los atributos
- * y comportamientos básicos de un guerrero.
+/**
+ * Clase abstracta base para los tipos de guerrero.
+ * Define atributos y comportamiento común de combate.
  */
 public abstract class Warrior {
 
-    // Atributos principales del guerrero
     private String name;
+
     private double lifePoints;
-    private double attackPer;
-    private double defencePer;
-    private String specialArm;
-    private String nativeFrom;
+    private double attack;
+    private double defence;
+
+    private String weapon;
+    private String origin;
     private String warriorType;
 
-    /*
-     * Constructor base del guerrero.
+    /**
+     * Inicializa atributos base del guerrero.
      */
     public Warrior(
             String name,
             double lifePoints,
-            double attackPer,
-            double defencePer,
-            String specialArm) {
+            double attack,
+            double defence,
+            String weapon) {
 
         this.name = name;
         this.lifePoints = lifePoints;
-        this.attackPer = attackPer;
-        this.defencePer = defencePer;
-        this.specialArm = specialArm;
-        this.warriorType = getWarriorType();
+        this.attack = attack;
+        this.defence = defence;
+        this.weapon = weapon;
     }
 
-    protected void setLifePoints(double addLife) {
-        this.lifePoints += addLife;
+    /**
+     * Modifica puntos de vida.
+     * Valores negativos representan daño.
+     */
+    public void updateLife(double amount) {
+        lifePoints += amount;
     }
 
-    protected void setAttack(double addAttack) {
-        this.attackPer += addAttack;
+    /**
+     * Modifica ataque.
+     */
+    protected void updateAttack(double amount) {
+        attack += amount;
     }
 
-    protected void setDefence(double addDefence) {
-        this.defencePer += addDefence;
+    /**
+     * Modifica defensa.
+     */
+    protected void updateDefence(double amount) {
+        defence += amount;
     }
 
-    protected void setFrom(String editFrom) {
-        this.nativeFrom = editFrom;
+    /**
+     * Define cultura u origen del guerrero.
+     */
+    protected void setOrigin(String origin) {
+        this.origin = origin;
     }
 
+    /**
+     * Define tipo de guerrero.
+     */
     protected void setWarriorType(String type) {
-        this.warriorType = type;
+        warriorType = type;
     }
 
-    /*
-     * Aplica una bonificación especial.
+    /**
+     * Aplica bonificación especial.
      */
     protected void setSpecial(int special){
 
-        switch (special){
-            case 1:
-                lifePoints += 0.5;
-                break;
+    switch(special){
 
-            case 2:
-                attackPer += 0.5;
-                break;
+        case 1 -> updateLife(10);
 
-            case 3:
-                defencePer += 0.5;
-                break;
-        }
+        case 2 -> updateAttack(0.10);
+
+        case 3 -> updateDefence(
+             Math.min(0.95, getDefence()+0.10)
+        );
     }
+}
 
-    public double getLife(){
+    public double getLife() {
         return lifePoints;
     }
 
-    public double getAttack(){
-        return attackPer;
+    public double getAttack() {
+        return attack;
     }
 
-    public double getDefence(){
-        return defencePer;
+    public double getDefence() {
+        return defence;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getWarriorType(){
+    public String getWarriorType() {
         return warriorType;
     }
 
-    public void setArmor(String Armor){
-        this.specialArm = Armor;
-    }
-    public String getArmor(){
-        return specialArm;
+    public void setArmor(String armor) {
+        this.weapon = armor;
     }
 
+    public String getArmor() {
+        return weapon;
+    }
+
+    /**
+     * Retorna lista de armas disponibles
+     * para el tipo de guerrero.
+     */
     public abstract List<String> getArmsList();
 }

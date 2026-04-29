@@ -1,58 +1,43 @@
 package model.Warriors;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Warrior;
 
-/*
- * Clase que representa un guerrero tipo combatiente.
- * Hereda atributos y comportamientos de Warrior.
+/**
+ * Representa un guerrero de tipo peleador.
  */
 public class Fighter extends Warrior {
 
-    /*
-     * Constructor que inicializa un guerrero tipo combatiente
-     * con sus atributos base.
+    private static final List<String> WEAPONS = List.of(
+            "Macuahuitl",
+            "Macana",
+            "Hacha",
+            "Garrote",
+            "Cuchillo"
+    );
+
+    /**
+     * Inicializa atributos base del peleador.
      */
-    public Fighter(String name,
-            double lifePoints,
-            double attackPer,
-            double defencePer,
-            String specialArm) {
+    public Fighter(String name) {
 
-        super(name,
-                lifePoints,
-                attackPer,
-                defencePer,
-                specialArm);
+        super(name,0,0,0,"");
 
-        // Configuración inicial de atributos del combatiente
-        setLifePoints(85); // Rango estimado: 0 - 100
-        setAttack(0.9); // Rango estimado: 0 - 1
-        setDefence(0.2); // Rango estimado: 0 - 1
+        updateLife(60);
+        updateAttack(0.9);
+        updateDefence(0.3);
 
-        /*
-         * Se aplica una habilidad especial:
-         * 1 = Vida
-         * 2 = Ataque
-         * 3 = Defensa
-         */
+        setWarriorType("Peleador");
+
         setSpecial(2);
     }
 
-    public String getWarriorType() {
-        return "Peleador";
-    }
+    /**
+     * Retorna armas disponibles del peleador.
+     */
     @Override
-    public List<String> getArmsList(){
-        List<String> Armors = new ArrayList<>();
-
-        Armors.add("Macuahuitl ");
-        Armors.add("Macana");
-        Armors.add("Hacha");
-        Armors.add("Garrote");
-        Armors.add("Cuchillo");
-        return Armors;
+    public List<String> getArmsList() {
+        return WEAPONS;
     }
 }
