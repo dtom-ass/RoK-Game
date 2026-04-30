@@ -42,8 +42,7 @@ public class EnemyBot {
 
         generateEnemyTeam();
 
-        enemyWarrior =
-                enemyCulture.getWarriorList().get(0);
+        enemyWarrior = enemyCulture.getWarriorList().get(0);
     }
 
     /**

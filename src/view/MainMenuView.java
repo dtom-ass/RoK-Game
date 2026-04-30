@@ -3,42 +3,49 @@ package view;
 import java.util.List;
 import model.Culture;
 import model.Warrior;
-
+import controller.*;
 public class MainMenuView {
+    // Falso limpiador de pantalla
+    public static void clear() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
+        }
+    }
 
-    // ─── Título del juego ────────────────────────────────────────────────
+    // Título del juego 
     public static void showTitle() {
+        clear();
         System.out.println("╔══════════════════════════════╗");
-        System.out.println("║                              ║");
-        System.out.println("║         ROK  GAME            ║");
-        System.out.println("║                              ║");
+        System.out.println("║.       -------------        .║");
+        System.out.println("║.    <| COMBATE - ROK |>     .║");
+        System.out.println("║.       -------------        .║");
         System.out.println("╚══════════════════════════════╝");
     }
 
-    // ─── Opciones del menú principal ─────────────────────────────────────
+    // Opciones del menú principal 
     public static void showMenu() {
-        System.out.println("  [1] Nueva partida");
-        System.out.println("  [2] Selección de jugador");
-        System.out.println("  [3] Mostrar enemigo");
+        System.out.println("  [1] Iniciar Juego");
         System.out.println("  [0] Salir");
         System.out.print("\nElige una opción: ");
     }
 
-    // ─── Lista de culturas disponibles ───────────────────────────────────
-    // El controlador le pasa la lista, la vista solo la imprime.
+    // Lista de culturas disponibles
+       // El controlador le pasa la lista, la vista solo la imprime.
     public static void showAvailableCultures(List<Culture> cultures) {
+        clear();
         System.out.println("\n=== Culturas disponibles ===");
         for (int i = 0; i < cultures.size(); i++) {
             Culture c = cultures.get(i);
-            System.out.printf("  [%d] %-12s — habilidad: %s%n",
-                i + 1, c.getName(), c.getSkill());
+            System.out.printf("[%d] %-12s \n",
+                i + 1, c.getName());
         }
         System.out.print("\nElige tu cultura: ");
     }
 
-    // ─── Equipo enemigo generado por EnemyBot ────────────────────────────
+    // Equipo enemigo generado por EnemyBot
     // El controlador le pasa la Culture del bot, la vista solo la imprime.
     public static void showEnemyTeam(Culture enemyCulture) {
+        clear();
         System.out.printf("%n=== Equipo enemigo: %s ===%n", enemyCulture.getName());
         for (Warrior w : enemyCulture.getWarriorList()) {
             System.out.printf("  · %-12s | tipo: %-10s | arma: %s%n",
@@ -47,12 +54,43 @@ public class MainMenuView {
         System.out.println();
     }
 
-    // ─── Mensajes de estado ───────────────────────────────────────────────
+    // Mensajes de estado
     public static void showInvalidOption() {
         System.out.println("  Opción no válida, intenta de nuevo.");
     }
 
     public static void showExit() {
-        System.out.println("\n  ¡Hasta la próxima, guerrero!\n");
+        System.out.println("+==========================+");
+        System.out.println("¡Hasta la próxima, guerrero!");
+        System.out.println("+==========================+");
     }
+
+    public static void showPlayerWarriors(PlayerController player){
+        clear();
+        System.err.println("\n-+== Guerreros del Jugador ==+-\n");
+        for(int i=0; i<player.getWarriorTeam().size(); i++){
+                System.out.printf(
+                    "[%d] -> " + player.getWarriorTeam().get(i).getWarriorType() 
+                    + " | " 
+                    + player.getWarriorTeam().get(i).getName() + "\n" ,
+                    i+1
+                );
+            }
+    }
+
+    public static void showEnemyIniStat(EnemyBot enemy){
+        System.err.println("\n-+== Guerreros del Enemigo ==+-\n");
+        for (Warrior warrior : enemy.getEnemyCulture().getWarriorList()){
+            System.out.printf("[+] %s | %s \n", warrior.getWarriorType(), warrior.getName());
+        }
+    }
+
+    public static void showNewBattle(PlayerController player, EnemyBot enemy){
+        System.out.println("|==============================|");
+        System.out.println("| NUEVA PARTIDA INICIADA |");
+        System.out.printf("| Jugador %s  VS Enemigo %s |",player.getPlayerCulture().getName(), enemy.getEnemyCulture().getName());
+        showEnemyIniStat(enemy);
+        showPlayerWarriors(player);
+    }
+
 }

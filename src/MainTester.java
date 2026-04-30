@@ -5,7 +5,7 @@ import controller.EnemyBot;
 import controller.PlayerController;
 import controller.SelectionController;
 // MAIN DE PRUEBA. MODELO DE COMBATE OK.
-public class Main {
+public class MainTester {
 
     public static void main(String[] args) {
 
@@ -34,8 +34,7 @@ public class Main {
         EnemyBot enemy = new EnemyBot();
 
         System.out.println("\n--- CULTURA JUGADOR ---");
-        System.out.println(
-                player.getPlayerCulture().getName());
+        System.out.println(player.getPlayerCulture().getName());
 
         System.out.println("\nEquipo jugador:");
 
