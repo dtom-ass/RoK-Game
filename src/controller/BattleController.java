@@ -1,6 +1,8 @@
 package controller;
 
 import model.Warrior;
+import view.BattleInConsole;
+import view.MainMenuView;
 
 /**
  * Controla el flujo de la batalla.
@@ -12,6 +14,7 @@ public class BattleController {
 
     private final PlayerController player;
     private final EnemyBot enemy;
+    private MainMenuView view = new MainMenuView();
 
     /**
      * Inicializa la batalla con ambos equipos.
@@ -34,21 +37,17 @@ public class BattleController {
             int attackType) {
 
         StringBuilder log = new StringBuilder();
+        Warrior attacker = player.getActiveWarrior();
+        Warrior target = enemy.getEnemyWarrior();
 
         if (selectedWarriorIndex >= 0) {
 
             player.switchWarrior(selectedWarriorIndex);
 
-            log.append(
-                String.format(
-                    " Jugador cambia a: %s%n",
-                    player.getActiveWarrior().getName()
-                )
-            );
+            BattleInConsole.showWarriorChange(target);
         }
 
-        Warrior attacker = player.getActiveWarrior();
-        Warrior target = enemy.getEnemyWarrior();
+        
 
         double rawDamage =
                 attackType == SPECIAL_ATTACK
@@ -61,20 +60,13 @@ public class BattleController {
                         target.getDefence()
                 );
 
-        log.append(
-            String.format(
-                " %s ataca a %s — daño: %.1f%n",
-                attacker.getName(),
-                target.getName(),
-                finalDamage
-            )
-        );
+        BattleInConsole.showAttack(attacker, target, finalDamage);
 
         enemy.receiveAttack(finalDamage);
 
         if (!enemy.isAlive()) {
 
-            log.append(" ¡Equipo enemigo derrotado!\n");
+            view.showMessage("ENEMIGO DERROTADO");
 
         } else {
 
@@ -110,20 +102,13 @@ public class BattleController {
                         target.getDefence()
                 );
 
-        log.append(
-            String.format(
-                " %s ataca a %s — daño: %.1f%n",
-                attacker.getName(),
-                target.getName(),
-                finalDamage
-            )
-        );
+        BattleInConsole.showAttack(attacker, target, finalDamage);
 
         player.receiveAttack(finalDamage);
 
         if (!player.isAlive()) {
 
-            log.append(" ¡Tu equipo fue derrotado!\n");
+            view.showMessage("TU  EQUIPO PIERDE");
 
         } else {
 
@@ -184,7 +169,7 @@ public class BattleController {
 
         return String.format(
             "%n ── Estado actual ──────────────%n" +
-            " [Jugador] %-12s vida: %5.1f atk: %.2f def: %.2f%n" +
+            " [Jugador] %-12s vida: %5.1f atk: %.2f def: %.2f%n [ VS ]\n" +
             " [Enemigo] %-12s vida: %5.1f atk: %.2f def: %.2f%n",
             pw.getName(),
             pw.getLife(),

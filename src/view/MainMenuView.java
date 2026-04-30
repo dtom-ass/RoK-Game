@@ -11,6 +11,9 @@ public class MainMenuView {
             System.out.println();
         }
     }
+    public static String showMessage(String message){
+        return message;
+    }
 
     // Título del juego 
     public static void showTitle() {
@@ -66,7 +69,7 @@ public class MainMenuView {
     }
 
     public static void showPlayerWarriors(PlayerController player){
-        clear();
+
         System.err.println("\n-+== Guerreros del Jugador ==+-\n");
         for(int i=0; i<player.getWarriorTeam().size(); i++){
                 System.out.printf(
@@ -88,9 +91,12 @@ public class MainMenuView {
     public static void showNewBattle(PlayerController player, EnemyBot enemy){
         System.out.println("|==============================|");
         System.out.println("| NUEVA PARTIDA INICIADA |");
-        System.out.printf("| Jugador %s  VS Enemigo %s |",player.getPlayerCulture().getName(), enemy.getEnemyCulture().getName());
+        System.out.printf("| Jugador %s -< VS >- Enemigo %s |",player.getPlayerCulture().getName(), enemy.getEnemyCulture().getName());
+        System.out.println("\n|==============================|");
         showEnemyIniStat(enemy);
         showPlayerWarriors(player);
+        System.out.println("\n|==============================|");
+        System.out.println("\n|Instrucciones: \n+ Cada ronda el jugador puede cambiar de guerrero. \n+ Despues de elegir tu guerrero, puedes atacar. \n+ El equipo enemigo decide si cambia de guerrero y realiza el ataque. \n+ El ataque enemigo afecta al ultimo guerrero seleccionado por el jugador.");
     }
 
 }

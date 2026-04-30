@@ -115,8 +115,7 @@ public class MainTester {
             // elegir ataque
             //---------------------------------
 
-            System.out.println(
-              "Ataque: 1 basico | 2 especial");
+            System.out.println("Ataque: 1 basico | 2 especial");
 
             int atk = sc.nextInt();
 
