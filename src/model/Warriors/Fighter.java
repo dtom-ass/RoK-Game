@@ -3,33 +3,15 @@ package model.Warriors;
 import java.util.List;
 import model.Warrior;
 
-/**
- * Representa un guerrero de tipo peleador.
- */
 public class Fighter extends Warrior {
+    private static final List<String> WEAPONS = List.of("Macuahuitl", "Macana", "Hacha", "Garrote", "Cuchillo");
 
-    private static final List<String> WEAPONS = List.of(
-            "Macuahuitl",
-            "Macana",
-            "Hacha",
-            "Garrote",
-            "Cuchillo");
-
-    /**
-     * Inicializa atributos base del peleador.
-     */
     public Fighter(String name) {
-
-        super(name, 60, 0.9, 0.3, "");
-
+        super(name, 60, 0.9, 0.3, WEAPONS.get(0));
         setWarriorType("Peleador");
-
         setSpecial(2);
     }
 
-    /**
-     * Retorna armas disponibles del peleador.
-     */
     @Override
     public List<String> getArmsList() {
         return WEAPONS;

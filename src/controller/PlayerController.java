@@ -22,12 +22,18 @@ public class PlayerController {
     public PlayerController(Culture culture) {
 
         playerCulture = culture;
-
         activeWarriorIndex = 0;
-
-        activeWarrior = culture.getWarriorList().get(0);
-
         alive = true;
+
+        List<Warrior> team = culture.getWarriorList();
+
+        // Validación de equipo vacío
+        if (!team.isEmpty()) {
+            activeWarrior = team.get(0);
+        } else {
+            activeWarrior = null;
+            alive = false;
+        }
     }
 
     /**
@@ -37,43 +43,49 @@ public class PlayerController {
 
         List<Warrior> team = playerCulture.getWarriorList();
 
-        if (chosenIndex == activeWarriorIndex) {
+        if (chosenIndex == activeWarriorIndex)
             return;
-        }
-
-        if (chosenIndex < 0 || chosenIndex >= team.size()) {
+        if (chosenIndex < 0 || chosenIndex >= team.size())
             return;
-        }
 
         activeWarriorIndex = chosenIndex;
         activeWarrior = team.get(chosenIndex);
     }
 
     /**
-     * Ejecuta ataque básico.
+     * Ataque básico.
      */
     public double basicAttack() {
+        if (activeWarrior == null)
+            return 0;
         return activeWarrior.getAttack();
     }
 
     /**
-     * Ejecuta ataque especial.
+     * Ataque especial.
      */
     public double specialAttack() {
-
+        if (activeWarrior == null)
+            return 0;
         return activeWarrior.getAttack() * SPECIAL_MULTIPLIER;
     }
 
     /**
      * Aplica daño recibido.
      */
-    public void receiveAttack(double damage) {
+    public boolean receiveAttack(double damage) {
+
+        if (activeWarrior == null)
+            return false;
 
         activeWarrior.updateLife(-damage);
 
         if (activeWarrior.getLife() <= 0) {
             removeDeadWarrior();
+            return true; // murió
         }
+
+        return false;
     }
 
     /**
@@ -81,18 +93,19 @@ public class PlayerController {
      */
     private void removeDeadWarrior() {
 
-        playerCulture.getWarriorList().remove(activeWarriorIndex);
+        // FIX: usar método interno de Culture
+        playerCulture.removeWarrior(activeWarriorIndex);
 
-        if (playerCulture.getWarriorList().isEmpty()) {
+        List<Warrior> team = playerCulture.getWarriorList();
 
+        if (team.isEmpty()) {
             alive = false;
-
-        } else {
-
-            activeWarriorIndex = 0;
-
-            activeWarrior = playerCulture.getWarriorList().get(0);
+            activeWarrior = null;
+            return;
         }
+
+        activeWarriorIndex = 0;
+        activeWarrior = team.get(0);
     }
 
     public Warrior getActiveWarrior() {
@@ -110,5 +123,4 @@ public class PlayerController {
     public boolean isAlive() {
         return alive;
     }
-
 }

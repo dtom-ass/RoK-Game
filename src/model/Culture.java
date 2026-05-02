@@ -1,19 +1,23 @@
 package model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /*
  * Clase abstracta que representa una cultura.
+ * Agrupa guerreros y define atributos comunes.
  */
 public abstract class Culture {
 
     private String name;
-    private double perBonus;
-    private String specialSkill;
+    private double perBonus; // Se valida rango básico
+    private String specialSkill; // String limita comportamiento futuro
     private List<Warrior> warriorList;
 
     /*
-     * Constructor base de cultura.
+     * Constructor base.
+     * Inicializa atributos y la lista.
      */
     public Culture(
             String name,
@@ -28,17 +32,21 @@ public abstract class Culture {
     }
 
     /*
-     * Agrega un guerrero a la cultura.
+     * Agrega un guerrero.
+     * Evita null y duplicados.
      */
     public void addWarrior(Warrior warrior) {
-        warriorList.add(warrior);
+        if (warrior != null && !warriorList.contains(warrior)) {
+            warriorList.add(warrior);
+        }
     }
 
     /*
-     * Retorna la lista de guerreros.
+     * Retorna lista inmodificable.
+     * Evita cambios externos.
      */
     public List<Warrior> getWarriorList() {
-        return warriorList;
+        return Collections.unmodifiableList(warriorList);
     }
 
     public String getName() {
@@ -49,21 +57,39 @@ public abstract class Culture {
         return perBonus;
     }
 
-    public String getSkill(){
+    public String getSkill() {
         return specialSkill;
     }
 
+    /*
+     * Setters protegidos con validación básica.
+     */
     protected void setName(String name) {
-        this.name = name;
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
     }
 
     protected void setBonus(double bonus) {
-        this.perBonus = bonus;
+        if (bonus >= 0) {
+            this.perBonus = bonus;
+        }
     }
 
     protected void setSkill(String skill) {
-        this.specialSkill = skill;
+        if (skill != null && !skill.isEmpty()) {
+            this.specialSkill = skill;
+        }
     }
 
+    /*
+     * Obliga a definir nombres de guerreros.
+     */
     public abstract List<String> getWarriorNameList();
+
+    public void removeWarrior(int index) {
+        if (index >= 0 && index < warriorList.size()) {
+            warriorList.remove(index);
+        }
+    }
 }

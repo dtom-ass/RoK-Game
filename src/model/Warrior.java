@@ -1,32 +1,34 @@
 package model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Clase abstracta base para los tipos de guerrero.
- * Define atributos y comportamiento común de combate.
+ * Clase base abstracta para todos los guerreros.
+ * Define atributos y comportamiento común.
  */
 public abstract class Warrior {
-
     private String name;
-
     private double lifePoints;
     private double attack;
     private double defence;
-
     private String weapon;
     private String origin;
     private String warriorType;
+    private static final Set<String> USED_NAMES = new HashSet<>();
 
     /**
-     * Inicializa atributos base del guerrero.
+     * Constructor principal.
+     * Inicializa atributos básicos del guerrero.
      */
-    public Warrior(
-            String name,
-            double lifePoints,
-            double attack,
-            double defence,
-            String weapon) {
+    public Warrior(String name, double lifePoints, double attack, double defence, String weapon) {
+
+        if (USED_NAMES.contains(name)) {
+            throw new IllegalArgumentException("Nombre ya usado: " + name);
+        }
+
+        USED_NAMES.add(name);
 
         this.name = name;
         this.lifePoints = lifePoints;
@@ -36,59 +38,61 @@ public abstract class Warrior {
     }
 
     /**
-     * Modifica puntos de vida.
-     * Valores negativos representan daño.
+     * Modifica la vida del guerrero.
+     * Evita que la vida sea negativa.
      */
     public void updateLife(double amount) {
-        lifePoints += amount;
+        this.lifePoints = Math.max(0, this.lifePoints + amount);
     }
 
     /**
-     * Modifica ataque.
+     * Ajusta el ataque.
+     * No valida límites.
      */
     protected void updateAttack(double amount) {
-        attack += amount;
+        this.attack += amount;
     }
 
     /**
-     * Modifica defensa.
+     * Ajusta la defensa.
+     * No valida límites.
      */
     protected void updateDefence(double amount) {
-        defence += amount;
+        this.defence += amount;
     }
 
     /**
-     * Define cultura u origen del guerrero.
+     * Define el origen del guerrero.
      */
     protected void setOrigin(String origin) {
         this.origin = origin;
     }
 
     /**
-     * Define tipo de guerrero.
+     * Define el tipo de guerrero.
      */
     protected void setWarriorType(String type) {
-        warriorType = type;
+        this.warriorType = type;
     }
 
     /**
-     * Aplica bonificación especial.
+     * Aplica bonificación según tipo.
+     * Usa valores numéricos que no son autoexplicativos.
      */
     protected void setSpecial(int special) {
-
         switch (special) {
-
-            case 1 -> updateLife(10);
-
-            case 2 -> updateAttack(0.10);
-
-            case 3 -> updateDefence(
-                    Math.min(0.95, getDefence() + 0.10));
+            case 1 -> this.attack *= 1.1;
+            case 2 -> this.defence *= 1.1;
+            case 3 -> this.lifePoints += 10;
         }
     }
 
+    /**
+     * Devuelve la vida.
+     * Redundante porque ya se controla en updateLife.
+     */
     public double getLife() {
-        return lifePoints;
+        return Math.max(0, lifePoints);
     }
 
     public double getAttack() {
@@ -107,17 +111,45 @@ public abstract class Warrior {
         return warriorType;
     }
 
-    public void setWeapon(String armor) {
-        this.weapon = armor;
+    /**
+     * Define el arma actual.
+     * Uso de String limita escalabilidad.
+     */
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
     }
 
+    /**
+     * Retorna el arma equipada.
+     */
     public String getWeapon() {
         return weapon;
     }
 
     /**
-     * Retorna lista de armas disponibles
-     * para el tipo de guerrero.
+     * Método abstracto que obliga a definir armas disponibles.
      */
     public abstract List<String> getArmsList();
+
+    /**
+     * Representación básica del guerrero.
+     * Puede mostrar null si warriorType no fue definido.
+     */
+    @Override
+    public String toString() {
+        return name + " (" + warriorType + ") - Vida: " + lifePoints;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Warrior))
+            return false;
+        Warrior w = (Warrior) o;
+        return name.equals(w.name);
+    }
+
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

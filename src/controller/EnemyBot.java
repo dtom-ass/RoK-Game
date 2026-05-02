@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
 import model.Culture;
 import model.Cultures.AztecaCulture;
 import model.Cultures.IncaCulture;
@@ -41,7 +42,11 @@ public class EnemyBot {
 
         generateEnemyTeam();
 
-        enemyWarrior = enemyCulture.getWarriorList().get(0);
+        // Validación para evitar acceso inválido
+        List<Warrior> team = enemyCulture.getWarriorList();
+        if (!team.isEmpty()) {
+            enemyWarrior = team.get(0);
+        }
     }
 
     /**
@@ -52,41 +57,39 @@ public class EnemyBot {
         setRandomCulture();
 
         List<String> names = enemyCulture.getWarriorNameList();
-
         List<Integer> indices = new ArrayList<>();
 
+        // Genera lista de índices para evitar repetir nombres
         for (int i = 0; i < names.size(); i++) {
             indices.add(i);
         }
 
         Collections.shuffle(indices);
 
-        for (int i = 0; i < 3; i++) {
+        // Limita a máximo 3 o al tamaño disponible
+        for (int i = 0; i < Math.min(3, names.size()); i++) {
 
             String name = names.get(indices.get(i));
-
             Warrior warrior = createRandomWarrior(name);
 
+            // Asigna arma aleatoria del guerrero
             warrior.setWeapon(
                     warrior.getArmsList().get(
-                            random.nextInt(
-                                    warrior.getArmsList().size())));
+                            random.nextInt(warrior.getArmsList().size())));
 
             enemyCulture.addWarrior(warrior);
         }
     }
 
     /**
-     * Asigna cultura aleatoria.
+     * Asigna una cultura aleatoria.
      */
     private void setRandomCulture() {
-
         switch (random.nextInt(4)) {
-
-            case 0 -> enemyCulture = new AztecaCulture();
-            case 1 -> enemyCulture = new IncaCulture();
-            case 2 -> enemyCulture = new MayaCulture();
-            default -> enemyCulture = new MuiscaCulture();
+            case 0 -> this.enemyCulture = new AztecaCulture();
+            case 1 -> this.enemyCulture = new IncaCulture();
+            case 2 -> this.enemyCulture = new MayaCulture();
+            case 3 -> this.enemyCulture = new MuiscaCulture();
         }
     }
 
@@ -94,14 +97,11 @@ public class EnemyBot {
      * Crea un guerrero aleatorio.
      */
     private Warrior createRandomWarrior(String name) {
-
         return switch (random.nextInt(5)) {
-
             case 0 -> new Archer(name);
             case 1 -> new Fighter(name);
             case 2 -> new Healer(name);
             case 3 -> new Lancer(name);
-
             default -> new Tank(name);
         };
     }
@@ -111,17 +111,19 @@ public class EnemyBot {
      */
     public double playTurn() {
 
+        // Puede cambiar de guerrero
         if (random.nextBoolean()) {
             switchWarrior();
         }
 
+        // Decide tipo de ataque
         return random.nextBoolean()
                 ? basicAttack()
                 : specialAttack();
     }
 
     /**
-     * Cambia guerrero activo aleatoriamente.
+     * Cambia el guerrero activo aleatoriamente.
      */
     private void switchWarrior() {
 
@@ -133,6 +135,7 @@ public class EnemyBot {
 
         int next;
 
+        // Evita seleccionar el mismo guerrero
         do {
             next = random.nextInt(team.size());
         } while (next == activeWarriorIndex);
@@ -152,51 +155,48 @@ public class EnemyBot {
      * Ataque especial.
      */
     private double specialAttack() {
-        return enemyWarrior.getAttack()
-                * SPECIAL_MULTIPLIER;
+        return enemyWarrior.getAttack() * SPECIAL_MULTIPLIER;
     }
 
     /**
      * Aplica daño recibido.
      */
-    public void receiveAttack(double damage) {
+    public boolean receiveAttack(double damage) {
+
+        if (enemyWarrior == null)
+            return false;
 
         enemyWarrior.updateLife(-damage);
 
         if (enemyWarrior.getLife() <= 0) {
             removeDeadWarrior();
+            return true; // murió
         }
+
+        return false;
     }
 
     /**
-     * Elimina guerrero derrotado.
+     * Elimina guerrero muerto y actualiza estado.
      */
     private void removeDeadWarrior() {
 
-        System.out.printf(
-                " %s ha sido eliminado.%n",
-                enemyWarrior.getName());
+        System.out.printf(" %s ha sido eliminado.%n", enemyWarrior.getName());
 
-        enemyCulture
-                .getWarriorList()
-                .remove(activeWarriorIndex);
+        // FIX: no modificar lista inmodificable directamente
+        enemyCulture.removeWarrior(activeWarriorIndex);
 
-        if (enemyCulture.getWarriorList().isEmpty()) {
+        List<Warrior> team = enemyCulture.getWarriorList();
 
-            alive = false;
-
-        } else {
-
-            activeWarriorIndex = 0;
-
-            enemyWarrior = enemyCulture
-                    .getWarriorList()
-                    .get(0);
-
-            System.out.printf(
-                    " Nuevo guerrero enemigo: %s%n",
-                    enemyWarrior.getName());
+        if (team.isEmpty()) {
+            this.alive = false;
+            this.enemyWarrior = null;
+            return;
         }
+
+        // Selecciona nuevo guerrero activo
+        this.activeWarriorIndex = 0;
+        this.enemyWarrior = team.get(0);
     }
 
     public Culture getEnemyCulture() {
@@ -214,5 +214,4 @@ public class EnemyBot {
     public List<String> getWarriorNameList() {
         return enemyCulture.getWarriorNameList();
     }
-
 }

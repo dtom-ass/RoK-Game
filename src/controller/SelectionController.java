@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import model.Culture;
 import model.Cultures.AztecaCulture;
 import model.Cultures.IncaCulture;
@@ -34,7 +35,6 @@ public class SelectionController {
             new MuiscaCulture());
 
     public SelectionController(Scanner scanner) {
-
         this.scanner = scanner;
         this.random = new Random();
     }
@@ -48,8 +48,7 @@ public class SelectionController {
      */
     public Culture selectCulture() {
 
-        MainMenuView.showAvailableCultures(
-                availableCultures);
+        MainMenuView.showAvailableCultures(availableCultures);
 
         Culture selectedCulture = readCultureChoice();
 
@@ -59,30 +58,19 @@ public class SelectionController {
     }
 
     /**
-     * Lee opción del usuario.
+     * Lee la elección de cultura con validación.
      */
     private Culture readCultureChoice() {
-
         int choice = -1;
 
-        while (choice < 1 ||
-                choice > availableCultures.size()) {
+        while (choice < 1 || choice > availableCultures.size()) {
+            System.out.print("Seleccione una cultura válida: ");
 
             if (scanner.hasNextInt()) {
-
                 choice = scanner.nextInt();
-
-                if (choice < 1 ||
-                        choice > availableCultures.size()) {
-
-                    MainMenuView.showInvalidOption();
-                }
-
+                scanner.nextLine(); // limpia buffer
             } else {
-
-                scanner.next();
-
-                MainMenuView.showInvalidOption();
+                scanner.next(); // descarta inválido
             }
         }
 
@@ -90,30 +78,23 @@ public class SelectionController {
     }
 
     /**
-     * Genera equipo aleatorio sin repetir nombres.
+     * Genera equipo aleatorio.
      */
     private void generateRandomTeam(Culture culture) {
 
-        List<String> names = culture.getWarriorNameList();
+        List<String> names = new ArrayList<>(culture.getWarriorNameList());
+        Collections.shuffle(names);
 
-        List<Integer> indices = new ArrayList<>();
+        int teamSize = Math.min(3, names.size());
 
-        for (int i = 0; i < names.size(); i++) {
-            indices.add(i);
-        }
+        for (int i = 0; i < teamSize; i++) {
 
-        Collections.shuffle(indices);
+            Warrior warrior = createRandomWarrior(names.get(i));
 
-        for (int i = 0; i < 3; i++) {
-
-            String name = names.get(indices.get(i));
-
-            Warrior warrior = createRandomWarrior(name);
-
+            // Asigna arma aleatoria (consistencia con EnemyBot)
             warrior.setWeapon(
                     warrior.getArmsList().get(
-                            random.nextInt(
-                                    warrior.getArmsList().size())));
+                            random.nextInt(warrior.getArmsList().size())));
 
             culture.addWarrior(warrior);
         }
@@ -123,16 +104,12 @@ public class SelectionController {
      * Crea guerrero aleatorio.
      */
     private Warrior createRandomWarrior(String name) {
-
         return switch (random.nextInt(5)) {
-
             case 0 -> new Archer(name);
             case 1 -> new Fighter(name);
             case 2 -> new Healer(name);
             case 3 -> new Lancer(name);
-
             default -> new Tank(name);
         };
     }
-
 }

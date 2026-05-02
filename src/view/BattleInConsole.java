@@ -3,18 +3,17 @@ package view;
 import model.Warrior;
 
 public class BattleInConsole {
-
-    /**
-     * Muestra detalladamente el resultado de una acción de ataque.
-     * 
-     * @param attacker El guerrero que realiza la acción.
-     * @param target   El guerrero que recibe el impacto.
-     * @param damage   El daño final calculado tras aplicar defensas.
-     */
+    private static ConsoleView view = new ConsoleView();
 
     public static void showWarriorChange(Warrior activeWarrior) {
+
+        if (activeWarrior == null) {
+            System.out.println("Error: guerrero no disponible");
+            return;
+        }
+
         System.out.printf(
-                "# Guerrero seleccionado: %s | %s | vida:%.1f atk:%.2f def:%.2f%n | arma:%s ",
+                "# Guerrero seleccionado: %s | %s | vida:%.1f atk:%.2f def:%.2f | arma:%s%n",
                 activeWarrior.getWarriorType(),
                 activeWarrior.getName(),
                 activeWarrior.getLife(),
@@ -25,24 +24,22 @@ public class BattleInConsole {
 
     public static void attackSelector() {
         System.out.println("- Lanzar ataque -");
-        System.out.println("[1]: Basico \n[2]: Especial");
+        System.out.println("[1]: Basico");
+        System.out.println("[2]: Especial");
     }
 
     public static void showAttack(Warrior attacker, Warrior target, double damage) {
-        System.out.println("\n------------------------------------------------");
-        System.out.printf("¡%s (%s) lanza un ataque a %s.%n",
-                attacker.getName(), attacker.getWarriorType(), target.getName());
-        System.out.printf(">> Daño infligido: %.1f puntos.%n", damage);
 
-        // Se asegura de no mostrar vida negativa en consola
-        double remainingLife = Math.max(0, target.getLife());
-        System.out.printf(">> Vida restante de %s: %.1f%n", target.getName(), remainingLife);
-
-        if (remainingLife <= 0) {
-            System.out.printf("¡%s ha caído en combate!%n", target.getName());
+        if (attacker == null || target == null) {
+            System.out.println("Error: ataque inválido");
+            return;
         }
-        System.out.println("------------------------------------------------");
 
+        String line1 = String.format("%s ataca a %s con %s", attacker.getName(), target.getName(),
+                attacker.getWeapon());
+        String line2 = String.format("Daño causado: %5.1f", damage);
+        String line3 = String.format("Vida restante de %s: %5.1f", target.getName(), target.getLife());
+
+        view.printBox(line1, line2, line3);
     }
-
 }

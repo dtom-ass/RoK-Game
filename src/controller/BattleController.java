@@ -2,11 +2,10 @@ package controller;
 
 import model.Warrior;
 import view.BattleInConsole;
-import view.MainMenuView;
+import view.ConsoleView;
 
 /**
  * Controla el flujo de la batalla.
- * Procesa turnos, calcula daño y verifica el estado del combate.
  */
 public class BattleController {
 
@@ -14,163 +13,138 @@ public class BattleController {
 
     private final PlayerController player;
     private final EnemyBot enemy;
-    private MainMenuView view = new MainMenuView();
+    private final ConsoleView view = new ConsoleView();
 
-    /**
-     * Inicializa la batalla con ambos equipos.
-     */
-    public BattleController(
-            PlayerController player,
-            EnemyBot enemy) {
-
+    public BattleController(PlayerController player, EnemyBot enemy) {
         this.player = player;
         this.enemy = enemy;
     }
 
     /**
-     * Ejecuta el turno del jugador.
-     *
-     * @return registro textual del turno
+     * Turno del jugador.
      */
-    public String playerTurn(
-            int selectedWarriorIndex,
-            int attackType) {
+    public String playerTurn(int selectedWarriorIndex, int attackType) {
 
-        StringBuilder log = new StringBuilder();
+        if (player.getActiveWarrior() == null || enemy.getEnemyWarrior() == null) {
+            return "Combate inválido";
+        }
+
+        if (selectedWarriorIndex >= 0) {
+            player.switchWarrior(selectedWarriorIndex);
+        }
+
         Warrior attacker = player.getActiveWarrior();
         Warrior target = enemy.getEnemyWarrior();
 
-        if (selectedWarriorIndex >= 0) {
+        String targetName = target.getName();
 
-            player.switchWarrior(selectedWarriorIndex);
-
-            BattleInConsole.showWarriorChange(target);
-        }
-
-        double rawDamage = attackType == SPECIAL_ATTACK
+        double rawDamage = (attackType == 2)
                 ? player.specialAttack()
                 : player.basicAttack();
 
-        double finalDamage = calculateDamage(
-                rawDamage,
-                target.getDefence());
+        double finalDamage = calculateDamage(rawDamage, target.getDefence());
 
         BattleInConsole.showAttack(attacker, target, finalDamage);
 
-        enemy.receiveAttack(finalDamage);
+        boolean killed = enemy.receiveAttack(finalDamage);
 
-        if (!enemy.isAlive()) {
+        if (killed) {
+            System.out.println(">>> " + targetName + " ha sido eliminado.");
 
-            view.showMessage("ENEMIGO DERROTADO");
-
-        } else {
-
-            log.append(
-                    String.format(
-                            " Vida restante de %s: %.1f%n",
-                            target.getName(),
-                            target.getLife()));
+            if (enemy.getEnemyWarrior() != null) {
+                System.out.println(">>> Nuevo enemigo: "
+                        + enemy.getEnemyWarrior().getName());
+            }
         }
 
-        return log.toString();
+        return "";
     }
 
     /**
-     * Ejecuta el turno del enemigo.
-     *
-     * @return registro textual del turno
+     * Turno del enemigo.
      */
     public String enemyTurn() {
 
-        StringBuilder log = new StringBuilder();
+        if (player.getActiveWarrior() == null || enemy.getEnemyWarrior() == null) {
+            return "Combate inválido";
+        }
+
+        System.out.println("\n--- TURNO DEL ENEMIGO ---");
 
         Warrior attacker = enemy.getEnemyWarrior();
         Warrior target = player.getActiveWarrior();
 
-        double rawDamage = enemy.playTurn();
+        String targetName = target.getName(); // guardar antes
 
-        double finalDamage = calculateDamage(
-                rawDamage,
-                target.getDefence());
+        double rawDamage = enemy.playTurn();
+        double finalDamage = calculateDamage(rawDamage, target.getDefence());
 
         BattleInConsole.showAttack(attacker, target, finalDamage);
 
-        player.receiveAttack(finalDamage);
+        boolean killed = player.receiveAttack(finalDamage);
 
-        if (!player.isAlive()) {
+        if (killed) {
+            System.out.println(">>> " + targetName + " ha sido eliminado.");
 
-            view.showMessage("TU  EQUIPO PIERDE");
-
-        } else {
-
-            log.append(
-                    String.format(
-                            " Vida restante de %s: %.1f%n",
-                            target.getName(),
-                            target.getLife()));
+            // Mostrar nuevo guerrero activo automáticamente
+            if (player.getActiveWarrior() != null) {
+                System.out.println(">>> Nuevo guerrero activo: "
+                        + player.getActiveWarrior().getName());
+            }
         }
 
-        return log.toString();
+        return "";
     }
 
     /**
-     * Calcula daño considerando defensa.
+     * Cálculo de daño.
      */
-    private double calculateDamage(
-            double attack,
-            double defence) {
+    private double calculateDamage(double attack, double defence) {
 
-        return Math.max(
-                (attack * 30) * (1 - defence),
-                1.0);
+        // Normaliza defensa para evitar valores fuera de rango
+        double def = Math.max(0, Math.min(defence, 1));
+
+        return Math.max((attack * 30) * (1 - def), 1.0);
     }
 
-    /**
-     * Indica si el jugador sigue con vida.
-     */
     public boolean isPlayerAlive() {
         return player.isAlive();
     }
 
-    /**
-     * Indica si el enemigo sigue con vida.
-     */
     public boolean isEnemyAlive() {
         return enemy.isAlive();
     }
 
-    /**
-     * Indica si la batalla terminó.
-     */
     public boolean isBattleOver() {
-        return !player.isAlive()
-                || !enemy.isAlive();
+        return !player.isAlive() || !enemy.isAlive();
     }
 
     /**
-     * Retorna resumen actual del combate.
+     * Estado del combate.
      */
-    public String getBattleStatus() {
+    public void getBattleStatus() {
 
         Warrior pw = player.getActiveWarrior();
         Warrior ew = enemy.getEnemyWarrior();
 
-        return String.format(
-                "%n ── Estado actual ──────────────%n" +
-                        " [Jugador] %-12s vida: %5.1f atk: %.2f def: %.2f%n [ VS ]\n" +
-                        " [Enemigo] %-12s vida: %5.1f atk: %.2f def: %.2f%n",
-                pw.getName(),
-                pw.getLife(),
-                pw.getAttack(),
-                pw.getDefence(),
-                ew.getName(),
-                ew.getLife(),
-                ew.getAttack(),
-                ew.getDefence());
+        if (pw == null || ew == null) {
+            view.printBox("COMBATE FINALIZADO");
+            return;
+        }
+
+        String pData = String.format("%-12s | HP: %5.1f | ATK: %.2f",
+                pw.getName(), pw.getLife(), pw.getAttack());
+
+        String vs = "--- VERSUS ---";
+
+        String eData = String.format("%-12s | HP: %5.1f | ATK: %.2f",
+                ew.getName(), ew.getLife(), ew.getAttack());
+
+        view.printBox("ESTADO DE COMBATE", pData, vs, eData);
     }
 
     /**
-     * Retorna resultado final de la partida.
+     * Resultado final.
      */
     public String getResult() {
 
