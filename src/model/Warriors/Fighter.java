@@ -1,7 +1,6 @@
 package model.Warriors;
 
 import java.util.List;
-
 import model.Warrior;
 
 /**
@@ -14,19 +13,14 @@ public class Fighter extends Warrior {
             "Macana",
             "Hacha",
             "Garrote",
-            "Cuchillo"
-    );
+            "Cuchillo");
 
     /**
      * Inicializa atributos base del peleador.
      */
     public Fighter(String name) {
 
-        super(name,0,0,0,"");
-
-        updateLife(60);
-        updateAttack(0.9);
-        updateDefence(0.3);
+        super(name, 60, 0.9, 0.3, "");
 
         setWarriorType("Peleador");
 

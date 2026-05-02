@@ -74,19 +74,18 @@ public abstract class Warrior {
     /**
      * Aplica bonificación especial.
      */
-    protected void setSpecial(int special){
+    protected void setSpecial(int special) {
 
-    switch(special){
+        switch (special) {
 
-        case 1 -> updateLife(10);
+            case 1 -> updateLife(10);
 
-        case 2 -> updateAttack(0.10);
+            case 2 -> updateAttack(0.10);
 
-        case 3 -> updateDefence(
-             Math.min(0.95, getDefence()+0.10)
-        );
+            case 3 -> updateDefence(
+                    Math.min(0.95, getDefence() + 0.10));
+        }
     }
-}
 
     public double getLife() {
         return lifePoints;
@@ -108,11 +107,11 @@ public abstract class Warrior {
         return warriorType;
     }
 
-    public void setArmor(String armor) {
+    public void setWeapon(String armor) {
         this.weapon = armor;
     }
 
-    public String getArmor() {
+    public String getWeapon() {
         return weapon;
     }
 

@@ -1,7 +1,6 @@
 package model.Warriors;
 
 import java.util.List;
-
 import model.Warrior;
 
 /**
@@ -13,19 +12,14 @@ public class Archer extends Warrior {
             "Estólica",
             "Waraka",
             "Cerbatana",
-            "Arco y Flecha"
-    );
+            "Arco y Flecha");
 
     /**
      * Inicializa atributos base del arquero.
      */
     public Archer(String name) {
 
-        super(name,0,0,0,"");
-
-        updateLife(55);
-        updateAttack(0.7);
-        updateDefence(0.5);
+        super(name, 55, 0.7, 0.5, "");
 
         setWarriorType("Arquero");
 

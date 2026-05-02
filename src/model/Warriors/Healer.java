@@ -1,7 +1,6 @@
 package model.Warriors;
 
 import java.util.List;
-
 import model.Warrior;
 
 /**
@@ -12,19 +11,14 @@ public class Healer extends Warrior {
     private static final List<String> WEAPONS = List.of(
             "Cuchillos de Obsidiana",
             "Bolsas de Hierbas",
-            "Agujas de Maguey"
-    );
+            "Agujas de Maguey");
 
     /**
      * Inicializa atributos base del sanador.
      */
     public Healer(String name) {
 
-        super(name,0,0,0,"");
-
-        updateLife(60);
-        updateAttack(0.6);
-        updateDefence(0.4);
+        super(name, 60, 0.6, 0.4, "");
 
         setWarriorType("Curador");
 

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
 import model.Culture;
 import model.Cultures.AztecaCulture;
 import model.Cultures.IncaCulture;
@@ -17,7 +16,6 @@ import model.Warriors.Fighter;
 import model.Warriors.Healer;
 import model.Warriors.Lancer;
 import model.Warriors.Tank;
-
 import view.MainMenuView;
 
 /**
@@ -33,8 +31,7 @@ public class SelectionController {
             new AztecaCulture(),
             new IncaCulture(),
             new MayaCulture(),
-            new MuiscaCulture()
-    );
+            new MuiscaCulture());
 
     public SelectionController(Scanner scanner) {
 
@@ -52,11 +49,9 @@ public class SelectionController {
     public Culture selectCulture() {
 
         MainMenuView.showAvailableCultures(
-                availableCultures
-        );
+                availableCultures);
 
-        Culture selectedCulture =
-                readCultureChoice();
+        Culture selectedCulture = readCultureChoice();
 
         generateRandomTeam(selectedCulture);
 
@@ -71,14 +66,14 @@ public class SelectionController {
         int choice = -1;
 
         while (choice < 1 ||
-               choice > availableCultures.size()) {
+                choice > availableCultures.size()) {
 
             if (scanner.hasNextInt()) {
 
                 choice = scanner.nextInt();
 
                 if (choice < 1 ||
-                    choice > availableCultures.size()) {
+                        choice > availableCultures.size()) {
 
                     MainMenuView.showInvalidOption();
                 }
@@ -99,11 +94,9 @@ public class SelectionController {
      */
     private void generateRandomTeam(Culture culture) {
 
-        List<String> names =
-                culture.getWarriorNameList();
+        List<String> names = culture.getWarriorNameList();
 
-        List<Integer> indices =
-                new ArrayList<>();
+        List<Integer> indices = new ArrayList<>();
 
         for (int i = 0; i < names.size(); i++) {
             indices.add(i);
@@ -113,19 +106,14 @@ public class SelectionController {
 
         for (int i = 0; i < 3; i++) {
 
-            String name =
-                    names.get(indices.get(i));
+            String name = names.get(indices.get(i));
 
-            Warrior warrior =
-                    createRandomWarrior(name);
+            Warrior warrior = createRandomWarrior(name);
 
-            warrior.setArmor(
-                warrior.getArmsList().get(
-                    random.nextInt(
-                        warrior.getArmsList().size()
-                    )
-                )
-            );
+            warrior.setWeapon(
+                    warrior.getArmsList().get(
+                            random.nextInt(
+                                    warrior.getArmsList().size())));
 
             culture.addWarrior(warrior);
         }

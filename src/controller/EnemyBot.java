@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import model.Culture;
-import model.Warrior;
 import model.Cultures.AztecaCulture;
 import model.Cultures.IncaCulture;
 import model.Cultures.MayaCulture;
 import model.Cultures.MuiscaCulture;
+import model.Warrior;
 import model.Warriors.Archer;
 import model.Warriors.Fighter;
 import model.Warriors.Healer;
@@ -52,8 +51,7 @@ public class EnemyBot {
 
         setRandomCulture();
 
-        List<String> names =
-                enemyCulture.getWarriorNameList();
+        List<String> names = enemyCulture.getWarriorNameList();
 
         List<Integer> indices = new ArrayList<>();
 
@@ -67,16 +65,12 @@ public class EnemyBot {
 
             String name = names.get(indices.get(i));
 
-            Warrior warrior =
-                    createRandomWarrior(name);
+            Warrior warrior = createRandomWarrior(name);
 
-            warrior.setArmor(
-                warrior.getArmsList().get(
-                    random.nextInt(
-                        warrior.getArmsList().size()
-                    )
-                )
-            );
+            warrior.setWeapon(
+                    warrior.getArmsList().get(
+                            random.nextInt(
+                                    warrior.getArmsList().size())));
 
             enemyCulture.addWarrior(warrior);
         }
@@ -131,8 +125,7 @@ public class EnemyBot {
      */
     private void switchWarrior() {
 
-        List<Warrior> team =
-                enemyCulture.getWarriorList();
+        List<Warrior> team = enemyCulture.getWarriorList();
 
         if (team.size() <= 1) {
             return;
@@ -142,8 +135,7 @@ public class EnemyBot {
 
         do {
             next = random.nextInt(team.size());
-        }
-        while (next == activeWarriorIndex);
+        } while (next == activeWarriorIndex);
 
         activeWarriorIndex = next;
         enemyWarrior = team.get(next);
@@ -182,13 +174,12 @@ public class EnemyBot {
     private void removeDeadWarrior() {
 
         System.out.printf(
-            " %s ha sido eliminado.%n",
-            enemyWarrior.getName()
-        );
+                " %s ha sido eliminado.%n",
+                enemyWarrior.getName());
 
         enemyCulture
-            .getWarriorList()
-            .remove(activeWarriorIndex);
+                .getWarriorList()
+                .remove(activeWarriorIndex);
 
         if (enemyCulture.getWarriorList().isEmpty()) {
 
@@ -198,15 +189,13 @@ public class EnemyBot {
 
             activeWarriorIndex = 0;
 
-            enemyWarrior =
-                enemyCulture
+            enemyWarrior = enemyCulture
                     .getWarriorList()
                     .get(0);
 
             System.out.printf(
-                " Nuevo guerrero enemigo: %s%n",
-                enemyWarrior.getName()
-            );
+                    " Nuevo guerrero enemigo: %s%n",
+                    enemyWarrior.getName());
         }
     }
 

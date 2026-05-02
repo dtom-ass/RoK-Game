@@ -47,18 +47,13 @@ public class BattleController {
             BattleInConsole.showWarriorChange(target);
         }
 
-        
-
-        double rawDamage =
-                attackType == SPECIAL_ATTACK
+        double rawDamage = attackType == SPECIAL_ATTACK
                 ? player.specialAttack()
                 : player.basicAttack();
 
-        double finalDamage =
-                calculateDamage(
-                        rawDamage,
-                        target.getDefence()
-                );
+        double finalDamage = calculateDamage(
+                rawDamage,
+                target.getDefence());
 
         BattleInConsole.showAttack(attacker, target, finalDamage);
 
@@ -71,12 +66,10 @@ public class BattleController {
         } else {
 
             log.append(
-                String.format(
-                    " Vida restante de %s: %.1f%n",
-                    target.getName(),
-                    target.getLife()
-                )
-            );
+                    String.format(
+                            " Vida restante de %s: %.1f%n",
+                            target.getName(),
+                            target.getLife()));
         }
 
         return log.toString();
@@ -96,11 +89,9 @@ public class BattleController {
 
         double rawDamage = enemy.playTurn();
 
-        double finalDamage =
-                calculateDamage(
-                        rawDamage,
-                        target.getDefence()
-                );
+        double finalDamage = calculateDamage(
+                rawDamage,
+                target.getDefence());
 
         BattleInConsole.showAttack(attacker, target, finalDamage);
 
@@ -113,12 +104,10 @@ public class BattleController {
         } else {
 
             log.append(
-                String.format(
-                    " Vida restante de %s: %.1f%n",
-                    target.getName(),
-                    target.getLife()
-                )
-            );
+                    String.format(
+                            " Vida restante de %s: %.1f%n",
+                            target.getName(),
+                            target.getLife()));
         }
 
         return log.toString();
@@ -132,9 +121,8 @@ public class BattleController {
             double defence) {
 
         return Math.max(
-            (attack * 30) * (1 - defence),
-            1.0
-        );
+                (attack * 30) * (1 - defence),
+                1.0);
     }
 
     /**
@@ -168,18 +156,17 @@ public class BattleController {
         Warrior ew = enemy.getEnemyWarrior();
 
         return String.format(
-            "%n ── Estado actual ──────────────%n" +
-            " [Jugador] %-12s vida: %5.1f atk: %.2f def: %.2f%n [ VS ]\n" +
-            " [Enemigo] %-12s vida: %5.1f atk: %.2f def: %.2f%n",
-            pw.getName(),
-            pw.getLife(),
-            pw.getAttack(),
-            pw.getDefence(),
-            ew.getName(),
-            ew.getLife(),
-            ew.getAttack(),
-            ew.getDefence()
-        );
+                "%n ── Estado actual ──────────────%n" +
+                        " [Jugador] %-12s vida: %5.1f atk: %.2f def: %.2f%n [ VS ]\n" +
+                        " [Enemigo] %-12s vida: %5.1f atk: %.2f def: %.2f%n",
+                pw.getName(),
+                pw.getLife(),
+                pw.getAttack(),
+                pw.getDefence(),
+                ew.getName(),
+                ew.getLife(),
+                ew.getAttack(),
+                ew.getDefence());
     }
 
     /**

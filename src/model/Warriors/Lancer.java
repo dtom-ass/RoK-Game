@@ -1,7 +1,6 @@
 package model.Warriors;
 
 import java.util.List;
-
 import model.Warrior;
 
 /**
@@ -13,19 +12,14 @@ public class Lancer extends Warrior {
             "Tepoztopilli",
             "Lanza de Chonta",
             "Nab'te",
-            "Pica de Bronce"
-    );
+            "Pica de Bronce");
 
     /**
      * Inicializa atributos base del lancero.
      */
     public Lancer(String name) {
 
-        super(name,0,0,0,"");
-
-        updateLife(55);
-        updateAttack(0.85);
-        updateDefence(0.6);
+        super(name, 55, 0.85, 0.6, "");
 
         setWarriorType("Lancero");
 

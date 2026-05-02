@@ -1,7 +1,6 @@
 package model.Warriors;
 
 import java.util.List;
-
 import model.Warrior;
 
 /**
@@ -13,19 +12,14 @@ public class Tank extends Warrior {
             "Ichcahuipilli",
             "Chimalli",
             "Escudo de Madera",
-            "Cascos de Metal"
-    );
+            "Cascos de Metal");
 
     /**
      * Inicializa atributos base del tanque.
      */
     public Tank(String name) {
 
-        super(name,0,0,0,"");
-
-        updateLife(70);
-        updateAttack(0.4);
-        updateDefence(0.8);
+        super(name, 70, 0.4, 0.8, "");
 
         setWarriorType("Tanque");
 

@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-
 import model.Culture;
 import model.Warrior;
 
@@ -26,8 +25,7 @@ public class PlayerController {
 
         activeWarriorIndex = 0;
 
-        activeWarrior =
-                culture.getWarriorList().get(0);
+        activeWarrior = culture.getWarriorList().get(0);
 
         alive = true;
     }
@@ -37,8 +35,7 @@ public class PlayerController {
      */
     public void switchWarrior(int chosenIndex) {
 
-        List<Warrior> team =
-                playerCulture.getWarriorList();
+        List<Warrior> team = playerCulture.getWarriorList();
 
         if (chosenIndex == activeWarriorIndex) {
             return;
@@ -64,8 +61,7 @@ public class PlayerController {
      */
     public double specialAttack() {
 
-        return activeWarrior.getAttack()
-                * SPECIAL_MULTIPLIER;
+        return activeWarrior.getAttack() * SPECIAL_MULTIPLIER;
     }
 
     /**
@@ -85,9 +81,7 @@ public class PlayerController {
      */
     private void removeDeadWarrior() {
 
-        playerCulture
-            .getWarriorList()
-            .remove(activeWarriorIndex);
+        playerCulture.getWarriorList().remove(activeWarriorIndex);
 
         if (playerCulture.getWarriorList().isEmpty()) {
 
@@ -97,10 +91,7 @@ public class PlayerController {
 
             activeWarriorIndex = 0;
 
-            activeWarrior =
-                    playerCulture
-                        .getWarriorList()
-                        .get(0);
+            activeWarrior = playerCulture.getWarriorList().get(0);
         }
     }
 

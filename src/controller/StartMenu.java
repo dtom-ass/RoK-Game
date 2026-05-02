@@ -1,4 +1,5 @@
 package controller;
+
 import view.*;
 
 import java.util.Scanner;
@@ -8,7 +9,7 @@ public class StartMenu {
     private BattleInConsole battleView = new BattleInConsole();
     private Scanner sc = new Scanner(System.in);
 
-    public void start(){
+    public void start() {
         view.showTitle();
         view.showMenu();
 
@@ -34,23 +35,19 @@ public class StartMenu {
             view.clear();
 
             int round = 1;
-            BattleController battle =
-                new BattleController(
-                        player,
-                        enemy
-                );
-            battleView.showAvailableWarriors(player);
+            BattleController battle = new BattleController(
+                    player,
+                    enemy);
+            // battleView.showAvailableWarriors(player);
             int change = sc.nextInt();
             while (!battle.isBattleOver()) {
                 view.clear();
                 System.out.println(battle.getBattleStatus());
-                
+
                 battleView.attackSelector();
                 int atk = sc.nextInt();
 
-                
-                battle.playerTurn(change,atk);
-
+                battle.playerTurn(change, atk);
 
                 if (battle.isBattleOver()) {
                     break;
@@ -59,19 +56,18 @@ public class StartMenu {
                 battle.enemyTurn();
 
                 round++;
-                
+
                 int nextCombat = sc.nextInt();
             }
             System.out.println(
-                battle.getResult()
-            );
+                    battle.getResult());
 
             sc.close();
 
         } else if (menu == 0) {
             view.showExit();
             return;
-        
+
         } else {
             System.out.println("Opción inválida");
         }
