@@ -28,9 +28,7 @@ public class MayaCulture extends Culture {
     public MayaCulture() {
 
         super(
-            "Maya",
-            0,
-            "Habilidad Maya"
+            "Maya"
         );
     }
 

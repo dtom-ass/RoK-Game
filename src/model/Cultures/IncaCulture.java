@@ -28,9 +28,7 @@ public class IncaCulture extends Culture {
     public IncaCulture() {
 
         super(
-            "Inca",
-            0,
-            "Poder Inca"
+            "Inca"
         );
     }
 

@@ -28,9 +28,7 @@ public class MuiscaCulture extends Culture {
     public MuiscaCulture() {
 
         super(
-            "Muisca",
-            0,
-            "Poder Muisca"
+            "Muisca"
         );
     }
 

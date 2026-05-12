@@ -28,9 +28,7 @@ public class AztecaCulture extends Culture {
     public AztecaCulture() {
 
         super(
-            "Azteca",
-            0,
-            "Habilidad Azteca"
+            "Azteca"
         );
     }
 
