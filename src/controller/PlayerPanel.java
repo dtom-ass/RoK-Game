@@ -30,4 +30,15 @@ public class PlayerPanel {
     public void specialAttack(){
         battle.playerTurn(selectedIndex, 2);
     }
+    /**
+     * TURNO ENEMIGO SE COMPRUEBA DESPUES DEL ATAQUE DEL JUGADOR ##
+            *if (battle.isEnemyAlive()) {
+            *    battle.enemyTurn();
+            *
+            *}
+            * 
+            * Aun no lo defino, el juego fue planeado para que los ataques sean por turnos, pero podria hacerlo en combate mas tradicional.
+            * Si se ejecuta el ataque enemigo de manera seudoaleatoria y no se limitan ataques del jugador.
+            */
+
 }

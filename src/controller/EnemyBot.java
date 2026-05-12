@@ -57,7 +57,7 @@ public class EnemyBot {
     private void generateEnemyTeam() {
         ConsoleLog.Log("Creando Equipo Enemigo...");
         setRandomCulture();
-        ConsoleLog.Log("Cultura elegida: " + getEnemyCulture().getName());
+        ConsoleLog.Log("Cultura Enemiga: " + getEnemyCulture().getName());
 
         List<String> names = enemyCulture.getWarriorNameList();
         List<Integer> indices = new ArrayList<>();

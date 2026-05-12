@@ -97,7 +97,7 @@ public class SelectionController {
      */
     private void generateRandomTeam(Culture culture) {
         ConsoleLog.Log("Creando equipo del jugador...");
-        ConsoleLog.Log("Cultura elegida: " + selectedCulture.getName());
+        ConsoleLog.Log("Cultura Aliada: " + culture.getName());
         List<String> names = new ArrayList<>(culture.getWarriorNameList());
         Collections.shuffle(names);
 
