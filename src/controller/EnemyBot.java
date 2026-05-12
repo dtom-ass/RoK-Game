@@ -172,7 +172,7 @@ public class EnemyBot {
             return false;
 
         enemyWarrior.updateLife(-damage);
-        ConsoleLog.Log("Enemigo " + enemyWarrior + " recibe " + damage + " puntos de daño.");
+        ConsoleLog.Log("Enemigo " + enemyWarrior.getName() + " recibe " + damage + " puntos de daño.");
 
         if (enemyWarrior.getLife() <= 0) {
             removeDeadWarrior();

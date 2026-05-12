@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 import model.Culture;
 import model.Warrior;
+import view.ConsoleLog;
 
 /**
  * Controla acciones del jugador durante la batalla.
@@ -50,14 +51,14 @@ public class PlayerController {
 
         activeWarriorIndex = chosenIndex;
         activeWarrior = team.get(chosenIndex);
+        ConsoleLog.Log("Jugador cambia al guerrero: " + activeWarrior.getName());
     }
 
     /**
      * Ataque básico.
      */
     public double basicAttack() {
-        if (activeWarrior == null)
-            return 0;
+        ConsoleLog.Log("Realizando ataque Basico...");
         return activeWarrior.getAttack();
     }
 
@@ -65,8 +66,7 @@ public class PlayerController {
      * Ataque especial.
      */
     public double specialAttack() {
-        if (activeWarrior == null)
-            return 0;
+        ConsoleLog.Log("Realizando ataque Especial...");
         return activeWarrior.getAttack() * SPECIAL_MULTIPLIER;
     }
 
@@ -74,12 +74,8 @@ public class PlayerController {
      * Aplica daño recibido.
      */
     public boolean receiveAttack(double damage) {
-
-        if (activeWarrior == null)
-            return false;
-
         activeWarrior.updateLife(-damage);
-
+        ConsoleLog.Log("El guerrero aliado " + activeWarrior.getName() + " recibio " + damage + " puntos de daño.");
         if (activeWarrior.getLife() <= 0) {
             removeDeadWarrior();
             return true; // murió
@@ -93,6 +89,7 @@ public class PlayerController {
      */
     private void removeDeadWarrior() {
 
+        ConsoleLog.Log("Guerrero aliado " + activeWarrior.getName() + " ELIMINADO");
         // FIX: usar método interno de Culture
         playerCulture.removeWarrior(activeWarriorIndex);
 
@@ -101,6 +98,7 @@ public class PlayerController {
         if (team.isEmpty()) {
             alive = false;
             activeWarrior = null;
+            ConsoleLog.Log("EQUIPO ALIADO DERROTADO");
             return;
         }
 

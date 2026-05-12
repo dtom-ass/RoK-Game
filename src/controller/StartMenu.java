@@ -97,6 +97,6 @@ public class StartMenu {
             view.clear(); // ahora sí limpia después de ver todo
         }
 
-        System.out.println(battle.getResult());
+        battle.getResult();
     }
 }

@@ -18,12 +18,14 @@ import model.Warriors.Healer;
 import model.Warriors.Lancer;
 import model.Warriors.Tank;
 import view.MainMenuView;
+import view.ConsoleLog;
 
 /**
  * Controla selección de cultura
  * y generación del equipo inicial.
  */
 public class SelectionController {
+    private Culture selectedCulture;
 
     private final Scanner scanner;
     private final Random random;
@@ -53,7 +55,7 @@ public class SelectionController {
         Culture selectedCulture = readCultureChoice();
 
         generateRandomTeam(selectedCulture);
-
+        
         return selectedCulture;
     }
 
@@ -64,7 +66,7 @@ public class SelectionController {
         int choice = -1;
 
         while (choice < 1 || choice > availableCultures.size()) {
-            System.out.print("Seleccione una cultura válida: ");
+            ConsoleLog.Log("SELECCIONE UNA CULTURA: "); // ## MODIFICAR PARA SELECCIÓN POR EVENTO DE CLICK ##
 
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
@@ -81,7 +83,8 @@ public class SelectionController {
      * Genera equipo aleatorio.
      */
     private void generateRandomTeam(Culture culture) {
-
+        ConsoleLog.Log("Creando equipo del jugador...");
+        ConsoleLog.Log("Cultura elegida: " + selectedCulture.getName());
         List<String> names = new ArrayList<>(culture.getWarriorNameList());
         Collections.shuffle(names);
 
@@ -97,6 +100,7 @@ public class SelectionController {
                             random.nextInt(warrior.getArmsList().size())));
 
             culture.addWarrior(warrior);
+            ConsoleLog.Log("Nuevo guerrero aliado: " + warrior.getName() + " " + warrior.getWarriorType());
         }
     }
 
