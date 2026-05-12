@@ -25,7 +25,7 @@ import view.ConsoleLog;
  * y generación del equipo inicial.
  */
 public class SelectionController {
-    private Culture selectedCulture;
+    private static Culture selectedCulture;
 
     private final Scanner scanner;
     private final Random random;
@@ -35,6 +35,19 @@ public class SelectionController {
             new IncaCulture(),
             new MayaCulture(),
             new MuiscaCulture());
+
+    private void selectAzteca(){
+        Culture selectedCulture = new AztecaCulture();
+    }
+    private void selectInca(){
+        Culture selectedCulture = new IncaCulture();
+    }
+    private void selectMaya(){
+        Culture selectedCulture = new MayaCulture();
+    }
+    private void selectMuisca(){
+        Culture selectedCulture = new MuiscaCulture();
+    }
 
     public SelectionController(Scanner scanner) {
         this.scanner = scanner;
@@ -115,5 +128,8 @@ public class SelectionController {
             case 3 -> new Lancer(name);
             default -> new Tank(name);
         };
+    }
+    public static Culture getSelectedCulture(){
+        return selectedCulture;
     }
 }

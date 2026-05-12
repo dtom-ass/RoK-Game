@@ -25,7 +25,6 @@ public class StartMenu {
         int menu = sc.nextInt();
 
         if (menu == 1) {
-
             SelectionController selector = new SelectionController(sc);
             var playerCulture = selector.selectCulture();
 
