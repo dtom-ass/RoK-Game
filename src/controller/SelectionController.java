@@ -26,12 +26,13 @@ import view.console.MainMenuView;
  */
 public class SelectionController {
     private static Culture selectedCulture;
-
-    private final Scanner scanner;
-    private final Random random;
+    private PlayerPanel panel;
+    private final Random random = new Random();
 
     
-    PlayerPanel panel = new PlayerPanel();
+    public SelectionController(PlayerPanel panel) {
+        this.panel = panel;
+    }
     private final List<Culture> availableCultures = List.of(
             new AztecaCulture(),
             new IncaCulture(),
@@ -66,10 +67,6 @@ public class SelectionController {
         
     }
 
-    public SelectionController(Scanner scanner) {
-        this.scanner = scanner;
-        this.random = new Random();
-    }
 
     public List<Culture> getAvailableCultures() {
         return availableCultures;
@@ -81,9 +78,6 @@ public class SelectionController {
     public Culture selectCulture() {
 
         MainMenuView.showAvailableCultures(availableCultures);
-
-        Culture selectedCulture = readCultureChoice();
-
         generateRandomTeam(selectedCulture);
         
         return selectedCulture;
@@ -92,22 +86,6 @@ public class SelectionController {
     /**
      * Lee la elección de cultura con validación.
      */
-    private Culture readCultureChoice() {
-        int choice = -1;
-
-        while (choice < 1 || choice > availableCultures.size()) {
-            ConsoleLog.Log("SELECCIONE UNA CULTURA: "); // ## MODIFICAR PARA SELECCIÓN POR EVENTO DE CLICK ##
-
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // limpia buffer
-            } else {
-                scanner.next(); // descarta inválido
-            }
-        }
-
-        return availableCultures.get(choice - 1);
-    }
 
     /**
      * Genera equipo aleatorio.

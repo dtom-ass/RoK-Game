@@ -20,7 +20,7 @@ public class BattleController {
         this.player = player;
         this.enemy = enemy;
         ConsoleLog.Log("Creando controlador de batalla...");
-        ConsoleLog.Log("Se Crea al Jugador: "+ player);
+        ConsoleLog.Log("Se Crea al Jugador: "+ player.getActiveWarrior().getName() + " EQUIPO" + player.getWarriorTeam());
         ConsoleLog.Log("Se Crea al Enemigo: "+ enemy);
     }
 
