@@ -7,15 +7,17 @@ import view.console.ConsoleLog;
 public class PlayerPanel {
     private PlayerController player;
     private BattleController battle;
+    private int selectedIndex;
 
-    public void newGame(){
-        Culture playerCulture = SelectionController.getSelectedCulture();
+    public void newGame(Culture playerCulture){
         this.player = new PlayerController(playerCulture);
+        int selectedIndex = 0;
         EnemyBot enemy = new EnemyBot();
         this.battle = new BattleController(player, enemy);
         // battleLoop();
+        
     }
-    int selectedIndex = -1;
+    
 
     public void ChangeWarrior() {
         selectedIndex += 1;
@@ -25,10 +27,10 @@ public class PlayerPanel {
     }
 
     public void basicAttack(){
-        battle.playerTurn(selectedIndex, 1);
+        this.battle.playerTurn(1, 1);
     }
     public void specialAttack(){
-        battle.playerTurn(selectedIndex, 2);
+        this.battle.playerTurn(1, 2);
     }
     /**
      * TURNO ENEMIGO SE COMPRUEBA DESPUES DEL ATAQUE DEL JUGADOR ##

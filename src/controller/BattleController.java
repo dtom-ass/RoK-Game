@@ -19,6 +19,9 @@ public class BattleController {
     public BattleController(PlayerController player, EnemyBot enemy) {
         this.player = player;
         this.enemy = enemy;
+        ConsoleLog.Log("Creando controlador de batalla...");
+        ConsoleLog.Log("Se Crea al Jugador: "+ player);
+        ConsoleLog.Log("Se Crea al Enemigo: "+ enemy);
     }
 
     /**

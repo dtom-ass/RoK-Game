@@ -30,23 +30,40 @@ public class SelectionController {
     private final Scanner scanner;
     private final Random random;
 
+    
+    PlayerPanel panel = new PlayerPanel();
     private final List<Culture> availableCultures = List.of(
             new AztecaCulture(),
             new IncaCulture(),
             new MayaCulture(),
             new MuiscaCulture());
 
-    private void selectAzteca(){
+    public void selectAzteca(){
+        ConsoleLog.Log("Cultura Azteca elegida.");
         Culture selectedCulture = new AztecaCulture();
+        generateRandomTeam(selectedCulture);
+        panel.newGame(selectedCulture);
+        
     }
-    private void selectInca(){
+    public void selectInca(){
+        ConsoleLog.Log("Cultura Inca elegida.");
         Culture selectedCulture = new IncaCulture();
+        generateRandomTeam(selectedCulture);
+        panel.newGame(selectedCulture);
     }
-    private void selectMaya(){
+    public void selectMaya(){
+        ConsoleLog.Log("Cultura Maya elegida.");
         Culture selectedCulture = new MayaCulture();
+        generateRandomTeam(selectedCulture);
+        panel.newGame(selectedCulture);
+
     }
-    private void selectMuisca(){
+    public void selectMuisca(){
+        ConsoleLog.Log("Cultura Muisca elegida.");
         Culture selectedCulture = new MuiscaCulture();
+        generateRandomTeam(selectedCulture);
+        panel.newGame(selectedCulture);
+        
     }
 
     public SelectionController(Scanner scanner) {
@@ -95,7 +112,7 @@ public class SelectionController {
     /**
      * Genera equipo aleatorio.
      */
-    private void generateRandomTeam(Culture culture) {
+    public void generateRandomTeam(Culture culture) {
         ConsoleLog.Log("Creando equipo del jugador...");
         ConsoleLog.Log("Cultura Aliada: " + culture.getName());
         List<String> names = new ArrayList<>(culture.getWarriorNameList());
