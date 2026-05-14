@@ -3,9 +3,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "guitest",
+            "name": "Main",
             "request": "launch",
-            "mainClass": "view.GUI.guitest",
+            "mainClass": "Main",
             "vmArgs": "--module-path \"${workspaceFolder}/lib\" --add-modules javafx.controls,javafx.fxml -Djava.library.path=\"${workspaceFolder}/lib\""
         }
     ]

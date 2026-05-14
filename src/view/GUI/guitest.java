@@ -9,11 +9,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.console.ConsoleLog;
 
-public class guitest extends Application {
-    PlayerPanel panel = new PlayerPanel();
-    SelectionController SelectionController = new SelectionController(panel);
-    @Override
-    public void start(Stage stage){
+public class guitest{
+    public static Scene create(Stage stage){
+        PlayerPanel panel = new PlayerPanel();
+        SelectionController SelectionController = new SelectionController(panel);
+    
         Button btn = new Button("TEST >> Azteca");
         btn.setOnAction(e -> {
             ConsoleLog.Log("Selección cultura Azteca. - TEST");
@@ -64,16 +64,9 @@ public class guitest extends Application {
 
         VBox root = new VBox();
         root.getChildren().addAll(btn,btna,btnb,btnc,btn1,btn2,btnX,ENEMYATTACK);
+        
+        return new Scene(root, 800, 600);
 
-        Scene scene = new Scene(root, 600, 400);
-
-        stage.setTitle("RoK Combat Game");
-        stage.setScene(scene);
-        stage.show();
     }
 
-    public static void main(String[] args) {
-        // Lanza la aplicación JavaFX
-        launch(args);
-    }
 }
