@@ -34,7 +34,8 @@ public class BattleScene {
             panel.getBattle().enemyTurn();
         });
 
-        VBox root = new VBox(ButtonBasicAttack, ButtonSpecialAttack, ButtonChangeWarrior, EnemyButtonAttack);
+        VBox root = new VBox(20,
+            ButtonBasicAttack, ButtonSpecialAttack, ButtonChangeWarrior, EnemyButtonAttack);
         return new Scene(root, 800, 600);
     }
 }
