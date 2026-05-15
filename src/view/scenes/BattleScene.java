@@ -29,7 +29,7 @@ public class BattleScene {
             panel.ChangeWarrior();
         });
 
-        Button EnemyButtonAttack = new Button("Ataque Enemigo");
+        Button EnemyButtonAttack = new Button("Ataque Enemigo - TEMPORAL");
         EnemyButtonAttack.setOnAction( e -> {
             panel.getBattle().enemyTurn();
         });

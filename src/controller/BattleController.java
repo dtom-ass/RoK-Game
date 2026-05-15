@@ -1,9 +1,7 @@
 package controller;
 
 import model.Warrior;
-import view.console.BattleInConsole;
 import view.console.ConsoleLog;
-import view.console.ConsoleView;
 
 /**
  * Controla el flujo de la batalla.
@@ -14,7 +12,6 @@ public class BattleController {
 
     private final PlayerController player;
     private final EnemyBot enemy;
-    private final ConsoleView view = new ConsoleView();
 
     public BattleController(PlayerController player, EnemyBot enemy) {
         this.player = player;

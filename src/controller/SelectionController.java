@@ -18,7 +18,6 @@ import model.Warriors.Healer;
 import model.Warriors.Lancer;
 import model.Warriors.Tank;
 import view.console.ConsoleLog;
-import view.console.MainMenuView;
 
 /**
  * Controla selección de cultura
@@ -76,8 +75,6 @@ public class SelectionController {
      * Ejecuta proceso de selección.
      */
     public Culture selectCulture() {
-
-        MainMenuView.showAvailableCultures(availableCultures);
         generateRandomTeam(selectedCulture);
         
         return selectedCulture;
