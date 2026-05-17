@@ -2,6 +2,7 @@ package view.scenes;
 
 import controller.PlayerPanel;
 import controller.SelectionController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -25,17 +26,32 @@ public class BattleScene {
             panel.specialAttack();
         });
 
-        ButtonChangeWarrior.setOnAction( e -> {
+        ButtonChangeWarrior.setOnAction(e -> {
             panel.ChangeWarrior();
         });
 
         Button EnemyButtonAttack = new Button("Ataque Enemigo - TEMPORAL");
-        EnemyButtonAttack.setOnAction( e -> {
+        EnemyButtonAttack.setOnAction(e -> {
             panel.getBattle().enemyTurn();
         });
 
+        ButtonBasicAttack.setId("ButtonBasicAttack");
+        ButtonSpecialAttack.setId("ButtonSpecialAttack");
+        ButtonChangeWarrior.setId("ButtonChangeWarrior");
+        EnemyButtonAttack.setId("EnemyButtonAttack");
+
         VBox root = new VBox(20,
-            ButtonBasicAttack, ButtonSpecialAttack, ButtonChangeWarrior, EnemyButtonAttack);
-        return new Scene(root, 800, 600);
+                ButtonBasicAttack, ButtonSpecialAttack, ButtonChangeWarrior, EnemyButtonAttack);
+
+        root.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(root, 800, 600);
+        String css = BattleScene.class
+                .getResource("/view/scenes/styles/Battle.css")
+                .toExternalForm();
+
+        scene.getStylesheets().add(css);
+
+        return scene;
     }
 }

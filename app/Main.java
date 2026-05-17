@@ -15,8 +15,7 @@ public class Main extends Application {
         stage.setTitle("RoK Combat Game");
 
         stage.setScene(
-            WelcomeScene.create(stage, panel, controller)
-        );
+                WelcomeScene.create(stage, panel, controller));
 
         stage.show();
     }

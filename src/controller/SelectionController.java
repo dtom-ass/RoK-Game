@@ -28,44 +28,46 @@ public class SelectionController {
     private PlayerPanel panel;
     private final Random random = new Random();
 
-    
     public SelectionController(PlayerPanel panel) {
         this.panel = panel;
     }
+
     private final List<Culture> availableCultures = List.of(
             new AztecaCulture(),
             new IncaCulture(),
             new MayaCulture(),
             new MuiscaCulture());
 
-    public void selectAzteca(){
+    public void selectAzteca() {
         ConsoleLog.Log("Cultura Azteca elegida.");
         Culture selectedCulture = new AztecaCulture();
         generateRandomTeam(selectedCulture);
         panel.newGame(selectedCulture);
-        
+
     }
-    public void selectInca(){
+
+    public void selectInca() {
         ConsoleLog.Log("Cultura Inca elegida.");
         Culture selectedCulture = new IncaCulture();
         generateRandomTeam(selectedCulture);
         panel.newGame(selectedCulture);
     }
-    public void selectMaya(){
+
+    public void selectMaya() {
         ConsoleLog.Log("Cultura Maya elegida.");
         Culture selectedCulture = new MayaCulture();
         generateRandomTeam(selectedCulture);
         panel.newGame(selectedCulture);
 
     }
-    public void selectMuisca(){
+
+    public void selectMuisca() {
         ConsoleLog.Log("Cultura Muisca elegida.");
         Culture selectedCulture = new MuiscaCulture();
         generateRandomTeam(selectedCulture);
         panel.newGame(selectedCulture);
-        
-    }
 
+    }
 
     public List<Culture> getAvailableCultures() {
         return availableCultures;
@@ -76,7 +78,7 @@ public class SelectionController {
      */
     public Culture selectCulture() {
         generateRandomTeam(selectedCulture);
-        
+
         return selectedCulture;
     }
 
@@ -121,7 +123,8 @@ public class SelectionController {
             default -> new Tank(name);
         };
     }
-    public static Culture getSelectedCulture(){
+
+    public static Culture getSelectedCulture() {
         return selectedCulture;
     }
 }
